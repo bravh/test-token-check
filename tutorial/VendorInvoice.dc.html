@@ -34,6 +34,7 @@
     .step__b{display:flex;flex-direction:column;gap:11px;padding-top:7px}
     .path{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.5;color:#1F1B16;background:#F2EEE6;border:1px solid #E4DDD1;padding:9px 11px}
     .path b{font-weight:500;color:#8F3F1C}
+    .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:0.92em;background:#F2EEE6;border:1px solid #E4DDD1;padding:1px 5px;white-space:nowrap}
     .shot{margin:0;display:flex;flex-direction:column;gap:11px}
     .ui{border:1px solid #C9C2B7;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden}
     .ui__top{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#2E2A25;color:#EFEAE1;padding:9px 12px;font-size:12px}
@@ -135,16 +136,16 @@
             <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="btn pri tgt">Invoice</span>
           </span>
-          <span class="btn">Invoice history</span>
+          <span class="btn">Invoice history and matching details</span>
           <span class="btn">Journals &#9662;</span>
         </div>
-        <div class="ui__title"><h4>PO-000241 &nbsp;&middot;&nbsp; Northwind Packaging</h4><span>Status <span class="stat g">Received</span> &nbsp; Document status <span class="stat g">Product receipt</span></span></div>
+        <div class="ui__title"><h4>PO-000241 &nbsp;&middot;&nbsp; Northwind Packaging</h4><span>Status <span class="stat n">Open order</span> &nbsp; Document status <span class="stat g">Product receipt</span></span></div>
       </div>
       <ol class="keys">
         <li><span class="keys__n">1</span><div><b>Invoice</b> tab &mdash; the last of the three tabs you use, in the same order as the three documents.</div></li>
         <li><span class="keys__n">2</span><div><b>Invoice</b> &mdash; creates a draft invoice from the order and the receipts already posted against it.</div></li>
       </ol>
-      <figcaption class="cap">Illustration &mdash; the order after Part 2. The document status shows a product receipt exists, which is what makes invoicing possible.</figcaption>
+      <figcaption class="cap">Illustration &mdash; the order after Part 2. It is still an open order, because 20 rolls have not arrived yet; but a product receipt exists, and that is what makes invoicing possible.</figcaption>
     </figure>
 
     <div class="step">
@@ -166,6 +167,7 @@
         <h3>Bring in the right receipts</h3>
         <p>Set <b>Default quantity for lines</b> to <b>Product receipt quantity</b>. That tells the system to bill you for what actually arrived rather than what was originally ordered &mdash; which is what you want in almost every case.</p>
         <p>Then click <b>Match product receipts</b> and tick the delivery or deliveries this invoice covers. One invoice can cover several deliveries; equally, one delivery can be split across two invoices. This is where you say which is which.</p>
+        <p>The quantities now fill in from those receipts &mdash; 40 rolls, in our example, because that is all that arrived. If the vendor has billed a different amount, type what they billed into the <b>Invoiced</b> column. That is what puts the difference on screen instead of quietly paying the wrong figure.</p>
       </div>
     </div>
 
@@ -176,9 +178,10 @@
         <p>Each line now carries a small mark showing whether the numbers agree:</p>
         <ul class="bul">
           <li><b>Green tick</b> &mdash; quantity and price match the order and the receipt. Nothing to do.</li>
-          <li><b>Orange warning</b> &mdash; something differs. Click <b>Review</b> to see exactly what: usually a price higher than agreed, or a quantity billed that was never received.</li>
+          <li><b>Orange warning</b> &mdash; something differs. Click <b>Matching details</b> on the <b>Review</b> tab to see exactly what: usually a price higher than agreed, or a quantity billed that was never received.</li>
         </ul>
         <p>Never post through a warning you have not understood. If the vendor has genuinely charged more, that is a conversation with them, not a number to overwrite.</p>
+        <p>In our example there are two honest ways forward: put the invoiced quantity back to 40 and post, which pays for what arrived and leaves the other 20 rolls open on the order for a later bill; or leave the invoice unposted and ask the vendor for a corrected one. Which of those you take is your company&rsquo;s call, not the system&rsquo;s.</p>
       </div>
     </div>
 
@@ -186,6 +189,7 @@
       <div class="step__n">5</div>
       <div class="step__b">
         <h3>Check the total, then post</h3>
+        <p>The order total you saw in Part 1 was before tax; the invoice adds tax on top, so the figure here is normally higher than the order total. That on its own is not a problem.</p>
         <p>Compare the total at the bottom of the page with the total on the vendor's invoice, including tax. If they differ by a few cents it is usually rounding; if they differ by more, find out why first.</p>
         <p>When you are happy, click <b>Post</b>.</p>
       </div>
@@ -197,13 +201,17 @@
           <span class="ui__crumb">Vendor invoice <span class="ui__sep">&rsaquo;</span> PO-000241</span>
           <span class="ui__co">CONTOSO</span>
         </div>
+        <div class="ui__tabs">
+          <span class="ui__tab on">Vendor invoice</span><span class="ui__tab">Review</span><span class="ui__tab">Options</span>
+        </div>
         <div class="ui__cmd">
           <span class="aim">
             <span class="hs"><span class="hs__n">3</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="btn tgt">Match product receipts</span>
           </span>
-          <span class="btn">Review &#9662;</span>
+          <span class="btn">Update match status</span>
           <span class="btn">Totals</span>
+          <span class="btn">Save</span>
           <span class="aim">
             <span class="hs"><span class="hs__n">5</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span class="btn pri tgt">Post</span>
@@ -253,7 +261,7 @@
         </div>
       </div>
       <ol class="keys">
-        <li><span class="keys__n">1</span><div><b>Number</b> and <b>Invoice date</b> &mdash; copied from the vendor's document, never invented.</div></li>
+        <li><span class="keys__n">1</span><div>The two ringed fields, <b>Number</b> and <b>Invoice date</b> &mdash; both copied from the vendor's document, never invented.</div></li>
         <li><span class="keys__n">2</span><div><b>Default quantity for lines</b> &mdash; set it to <b>Product receipt quantity</b> so you are billed for what arrived.</div></li>
         <li><span class="keys__n">3</span><div><b>Match product receipts</b> &mdash; tick the deliveries this invoice is paying for.</div></li>
         <li><span class="keys__n">4</span><div>The <b>Match</b> column &mdash; a green tick means the numbers agree; an orange triangle means they do not.</div></li>
@@ -267,7 +275,7 @@
       <div class="step__b">
         <h3>What you have just done</h3>
         <ul class="bul">
-          <li>The order's status becomes <b>Invoiced</b>. For most orders that is the end of its life.</li>
+          <li>Once everything on the order has been received and billed, its status becomes <b>Invoiced</b> and the order is finished. While something is still outstanding &mdash; our 20 rolls &mdash; it stays <b>Open order</b>.</li>
           <li>An open amount appears on the vendor's account, ready for the next payment run. Finance takes it from here &mdash; nothing is paid from this screen.</li>
           <li>A permanent record sits under <b>Invoice</b> &rsaquo; <b>Journals</b> &rsaquo; <b>Invoice</b>, tying the bill back to the receipt and the order.</li>
         </ul>

@@ -34,6 +34,7 @@
     .step__b{display:flex;flex-direction:column;gap:11px;padding-top:7px}
     .path{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.5;color:#1F1B16;background:#F2EEE6;border:1px solid #E4DDD1;padding:9px 11px}
     .path b{font-weight:500;color:#8F3F1C}
+    .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:0.92em;background:#F2EEE6;border:1px solid #E4DDD1;padding:1px 5px;white-space:nowrap}
     .shot{margin:0;display:flex;flex-direction:column;gap:11px}
     .ui{border:1px solid #C9C2B7;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden}
     .ui__top{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#2E2A25;color:#EFEAE1;padding:9px 12px;font-size:12px}
@@ -99,7 +100,8 @@
     <h1>Buying something, receiving it,<br>and paying the bill</h1>
     <p class="lede">A step-by-step walkthrough of the purchase order, product receipt and vendor invoice flow. Written for people who use Dynamics 365 &mdash; not for people who build it.</p>
     <div style="display:flex;flex-wrap:wrap;gap:9px;padding-top:4px">
-      <span class="stat n">5 parts</span>
+      <span class="stat n">3 steps</span>
+      <span class="stat n">5 pages</span>
       <span class="stat n">About 25 minutes</span>
       <span class="stat n">No technical knowledge needed</span>
     </div>
@@ -108,7 +110,7 @@
   <div class="sec">
     <span class="kicker">The big picture</span>
     <h2>Three documents, always in this order</h2>
-    <p style="color:#5F574B">Every purchase in Dynamics 365 creates three records, one after the other. You cannot skip a step, and each one unlocks the next. If you remember nothing else from this guide, remember this row:</p>
+    <p style="color:#5F574B">Every purchase in Dynamics 365 creates three records, one after the other. You cannot skip a step, and each one unlocks the next. If you remember nothing else from this guide, remember this sequence:</p>
 
     <div style="display:flex;align-items:stretch;gap:11px;padding-top:4px">
       <div style="flex:1;border:1px solid #D8D0C3;background:#FFFFFF;padding:15px;display:flex;flex-direction:column;gap:7px">
@@ -142,7 +144,7 @@
         <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>
         Why the order matters
       </span>
-      <p>Dynamics 365 compares all three documents before it lets an invoice be paid. This is called <b>three-way matching</b>: what you ordered, what you received, and what you were billed have to agree. Receiving before you order, or invoicing before you receive, breaks that chain &mdash; which is why the buttons for the later steps stay greyed out until the earlier one is done.</p>
+      <p>Dynamics 365 compares all three documents before it lets an invoice be posted. This is called <b>three-way matching</b>: what you ordered, what you received, and what you were billed have to agree. Each document is built from the one before it, so working out of order gets you nowhere &mdash; an invoice raised against nothing received has no quantities to check itself against.</p>
     </div>
   </div>
 
@@ -152,7 +154,7 @@
     <ul class="chk">
       <li>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <div><b>You are in the right company.</b> The company code sits in the top-right corner of the screen. Everything you create belongs to whichever company is showing there, and it cannot be moved afterwards.</div>
+        <div><b>You are in the right company.</b> Dynamics 365 calls this the <b>legal entity</b>, and it is shown in the top corner of the screen. Everything you create belongs to whichever company is showing there, and it cannot be moved afterwards.</div>
       </li>
       <li>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -160,7 +162,7 @@
       </li>
       <li>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <div><b>You know your item numbers.</b> Or the category to buy against, if you are buying a service rather than a stocked product.</div>
+        <div><b>You know your item numbers.</b> If you are buying a service rather than a physical product you pick a <b>procurement category</b> instead of an item number &mdash; ask your team which one to use.</div>
       </li>
       <li>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -175,7 +177,7 @@
     <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
       <div class="box">
         <span class="aim"><span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="btn tgt">Confirm</span></span>
-        <p>An orange number with an arrow points at the exact thing to click. The orange ring around it shows you what to look for on your own screen.</p>
+        <p>An orange number with an arrow points at the exact thing to click, and the orange ring shows you what to look for on your own screen. The numbers follow the order you do things in, which is not always top to bottom on the screen.</p>
       </div>
       <div class="box">
         <span class="path" style="align-self:flex-start"><b>Modules</b> &rsaquo; Procurement and sourcing</span>

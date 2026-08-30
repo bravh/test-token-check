@@ -34,6 +34,7 @@
     .step__b{display:flex;flex-direction:column;gap:11px;padding-top:7px}
     .path{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.5;color:#1F1B16;background:#F2EEE6;border:1px solid #E4DDD1;padding:9px 11px}
     .path b{font-weight:500;color:#8F3F1C}
+    .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:0.92em;background:#F2EEE6;border:1px solid #E4DDD1;padding:1px 5px;white-space:nowrap}
     .shot{margin:0;display:flex;flex-direction:column;gap:11px}
     .ui{border:1px solid #C9C2B7;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden}
     .ui__top{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#2E2A25;color:#EFEAE1;padding:9px 12px;font-size:12px}
@@ -119,7 +120,7 @@
           <span class="ui__co">Company: CONTOSO</span>
         </div>
         <div class="ui__tabs">
-          <span class="ui__tab on">Purchase order</span><span class="ui__tab">Manage</span><span class="ui__tab">Receive</span><span class="ui__tab">Invoice</span><span class="ui__tab">General</span><span class="ui__tab">Options</span>
+          <span class="ui__tab on">Purchase order</span><span class="ui__tab">Purchase</span><span class="ui__tab">Manage</span><span class="ui__tab">Receive</span><span class="ui__tab">Invoice</span><span class="ui__tab">General</span>
         </div>
         <div class="ui__cmd">
           <span class="aim">
@@ -134,11 +135,11 @@
         <div class="ui__title"><h4>All purchase orders</h4><span>Standard view</span></div>
         <div class="ui__body">
           <table class="g">
-            <thead><tr><th>Purchase order</th><th>Vendor account</th><th>Vendor name</th><th>Status</th><th>Approval status</th><th>Delivery date</th></tr></thead>
+            <thead><tr><th>Purchase order</th><th>Vendor account</th><th>Vendor name</th><th>Status</th><th>Document status</th><th>Delivery date</th></tr></thead>
             <tbody>
-              <tr><td>PO-000239</td><td>V-1042</td><td>Northwind Packaging</td><td><span class="stat b">Received</span></td><td>Approved</td><td>12 Feb 2026</td></tr>
-              <tr><td>PO-000240</td><td>V-1017</td><td>Alpine Components</td><td><span class="stat n">Open order</span></td><td>Approved</td><td>18 Feb 2026</td></tr>
-              <tr><td>PO-000238</td><td>V-1042</td><td>Northwind Packaging</td><td><span class="stat g">Invoiced</span></td><td>Approved</td><td>02 Feb 2026</td></tr>
+              <tr><td>PO-000240</td><td>V-1017</td><td>Alpine Components</td><td><span class="stat n">Open order</span></td><td>Purchase order</td><td>18 Feb 2026</td></tr>
+              <tr><td>PO-000239</td><td>V-1042</td><td>Northwind Packaging</td><td><span class="stat g">Received</span></td><td>Product receipt</td><td>12 Feb 2026</td></tr>
+              <tr><td>PO-000238</td><td>V-1042</td><td>Northwind Packaging</td><td><span class="stat b">Invoiced</span></td><td>Invoice</td><td>02 Feb 2026</td></tr>
             </tbody>
           </table>
         </div>
@@ -153,7 +154,7 @@
       <div class="step__n">2</div>
       <div class="step__b">
         <h3>Tell the system who you are buying from</h3>
-        <p>A small window opens on the right called <b>Create purchase order</b>. The first field, <b>Vendor account</b>, is the only one that is truly compulsory.</p>
+        <p>A small window opens on the right called <b>Create purchase order</b>. The first field, <b>Vendor account</b>, is the only one you have to fill in.</p>
         <p>Click into it and start typing the vendor's name or account number. A list appears underneath and narrows as you type &mdash; click the right one. The vendor's full name fills in automatically next to it.</p>
       </div>
     </div>
@@ -162,10 +163,10 @@
       <div class="step__n">3</div>
       <div class="step__b">
         <h3>Open <span style="color:#8F3F1C">General</span> and set where and when</h3>
-        <p>Below the vendor there are collapsed sections. Click the word <b>General</b> to expand it. Check these four:</p>
+        <p>Below the vendor there are collapsed sections. Click the word <b>General</b> to expand it, then check:</p>
         <ul class="bul">
           <li><b>Site</b> and <b>Warehouse</b> &mdash; where the goods will physically arrive. These usually fill in from the vendor, but they are worth a glance.</li>
-          <li><b>Delivery date</b> &mdash; when you expect the goods. It is a promise, not a commitment; you can change it later.</li>
+          <li><b>Delivery date</b> &mdash; when you expect the goods. It is your best estimate, and you can change it later.</li>
           <li><b>Currency</b> &mdash; comes from the vendor record. Only change it if you know you should.</li>
         </ul>
         <p>Then click <b>OK</b> at the bottom of the window.</p>
@@ -250,7 +251,7 @@
       <div class="step__b">
         <h3>Confirm the order</h3>
         <p>Confirming is what turns a draft into a real commitment to the vendor. Go to the <b>Purchase</b> tab along the top of the page, and in the <b>Actions</b> group click <b>Confirm</b>.</p>
-        <p>The page reloads and the <b>Document status</b> at the top changes to <b>Purchase order</b>, meaning a confirmed order now exists. That is your signal that Part 1 is finished.</p>
+        <p>The page reloads and the <b>Document status</b> at the top changes to <b>Purchase order</b>. That reads oddly on a page that is already called a purchase order, but it just means &ldquo;a confirmed order document now exists&rdquo; &mdash; and it is your signal that Part 1 is finished.</p>
       </div>
     </div>
 
@@ -321,7 +322,7 @@
 
   <div class="box info">
     <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>Sending the order to the vendor</span>
-    <p>Confirming does not email anybody by itself. To produce the document the vendor sees, use <b>Purchase order confirmation</b> on the same <b>Purchase</b> tab &mdash; you can then print it or send it as a PDF. Many organisations automate this; check what yours does before sending anything twice.</p>
+    <p>Confirming already produces the confirmation document, but it does not send it anywhere. Click <b>Purchase order confirmation</b> on the same <b>Purchase</b> tab to open the confirmations that have been generated, then print one or send it as a PDF from there. Many organisations automate this; check what yours does before sending anything twice.</p>
   </div>
 
 </div>

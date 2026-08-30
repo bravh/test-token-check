@@ -23,6 +23,7 @@
     .step__b{display:flex;flex-direction:column;gap:11px;padding-top:7px}
     .path{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.5;color:#1F1B16;background:#F2EEE6;border:1px solid #E4DDD1;padding:9px 11px}
     .path b{font-weight:500;color:#8F3F1C}
+    .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:0.92em;background:#F2EEE6;border:1px solid #E4DDD1;padding:1px 5px;white-space:nowrap}
     .shot{margin:0;display:flex;flex-direction:column;gap:11px}
     .ui{border:1px solid #C9C2B7;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden}
     .ui__top{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#2E2A25;color:#EFEAE1;padding:9px 12px;font-size:12px}

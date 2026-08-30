@@ -54,7 +54,7 @@
             <span class="hs"><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M14 7 H5" stroke="#2C6BAB" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L3 7 L7.5 10.5" stroke="#2C6BAB" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#2C6BAB">check it later</span></span>
           </span>
         </div>
-        <div class="ui__title"><h4>PO-000241 &nbsp;&middot;&nbsp; Northwind Packaging</h4><span>Status <span class="stat n">Open order</span> &nbsp; Document status <span class="stat b">Purchase order</span></span></div>
+        <div class="ui__title"><h4>PO-000241 &nbsp;&middot;&nbsp; Northwind Packaging</h4><span>Status <span class="stat n">Open order</span> &nbsp; Document status <span class="stat n">Purchase order</span></span></div>
         <div class="ui__body">
           <table class="g">
             <thead><tr><th>Item number</th><th>Product name</th><th class="num">Ordered</th><th class="num">Received</th><th class="num">Remaining</th><th>Unit</th></tr></thead>
@@ -78,7 +78,7 @@
         <h3>Type the vendor's reference and the date</h3>
         <p>Two fields matter here:</p>
         <ul class="bul">
-          <li><b>Product receipt</b> &mdash; copy the number from the vendor's packing slip. It is compulsory, and it must be different from any receipt number already used on this order.</li>
+          <li><b>Product receipt</b> &mdash; copy the number from the vendor's packing slip. It is required, and it must be different from any receipt number already used on this order. If the delivery note carries no number at all, use something your team agrees on and sticks to &mdash; the arrival date plus the vendor name, for instance.</li>
           <li><b>Product receipt date</b> &mdash; the day the goods actually arrived, which is not always today. Get this right: it decides the accounting period the stock lands in.</li>
         </ul>
       </div>
@@ -115,16 +115,16 @@
           <div class="grp">
             <div class="grp__t">Parameters</div>
             <div class="fgrid t3">
-              <div class="fld"><span class="fld__l">Quantity</span>
-                <span class="aim">
-                  <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                  <span class="fld__v sel tgt" style="flex:1">Deliver now <span class="chev">&#9662;</span></span>
-                </span>
-              </div>
               <div class="fld"><span class="fld__l">Product receipt</span>
                 <span class="aim">
                   <span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                   <span class="fld__v tgt" style="flex:1">DN-77421</span>
+                </span>
+              </div>
+              <div class="fld"><span class="fld__l">Quantity</span>
+                <span class="aim">
+                  <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="fld__v sel tgt" style="flex:1">Deliver now <span class="chev">&#9662;</span></span>
                 </span>
               </div>
               <div class="fld"><span class="fld__l">Product receipt date</span><span class="fld__v">26 Feb 2026</span></div>
@@ -154,7 +154,7 @@
         </div>
       </div>
       <ol class="keys">
-        <li><span class="keys__n">1</span><div><b>Product receipt</b> &mdash; the vendor's packing slip number. Compulsory, and it cannot be reused on this order.</div></li>
+        <li><span class="keys__n">1</span><div><b>Product receipt</b> &mdash; the vendor's packing slip number. Required, and it cannot be reused on this order.</div></li>
         <li><span class="keys__n">2</span><div><b>Quantity</b> &mdash; <b>Ordered quantity</b> for a complete delivery, <b>Deliver now</b> when only part of it arrived.</div></li>
         <li><span class="keys__n">3</span><div><b>Deliver now</b> column &mdash; the real amount, line by line. Type <span class="mono">0</span> for anything that did not come.</div></li>
         <li><span class="keys__n">4</span><div><b>OK</b> &mdash; posts the receipt. Stock goes up the moment you click it.</div></li>
@@ -170,6 +170,7 @@
         <ul class="bul">
           <li>The order's <b>Status</b> becomes <b>Received</b> if everything came, or stays <b>Open order</b> with a partial amount showing if some is still outstanding.</li>
           <li>The <b>Received</b> column on the lines now shows the amounts you entered, and <b>Remaining</b> drops accordingly.</li>
+          <li>Anything still outstanding stays on the order. When the rest of the delivery arrives, come back and post a second product receipt with the new packing slip number &mdash; you can do this as many times as the delivery is split.</li>
           <li>A record of the receipt appears under <b>Receive</b> &rsaquo; <b>Journals</b> &rsaquo; <b>Product receipt</b>. Open it if you ever need to prove what was received, when, and against which packing slip.</li>
         </ul>
       </div>

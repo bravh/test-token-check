@@ -26,11 +26,11 @@
     <table class="g" style="font-size:13.5px">
       <thead><tr><th>You see</th><th>It means</th><th>Do this next</th></tr></thead>
       <tbody>
-        <tr><td><span class="stat n">Open order</span></td><td>The order exists. Nothing has arrived yet.</td><td>Confirm it, if you have not. Then wait for the delivery.</td></tr>
-        <tr><td><span class="stat b">Purchase order</span><br><span style="font-size:11px;color:#6E6659">(document status)</span></td><td>The order has been confirmed and is committed to the vendor.</td><td>Nothing, until the goods turn up.</td></tr>
+        <tr><td><span class="stat n">Open order</span></td><td>The order exists and something on it is still outstanding &mdash; that may be all of it, or just the last few items. There is no separate &ldquo;partly received&rdquo; status, so check the <b>Received</b> and <b>Remaining</b> columns on the lines to see where you stand.</td><td>Confirm it if you have not. Otherwise wait for the delivery, or post a receipt for whatever has just turned up.</td></tr>
+        <tr><td><span class="stat n">Purchase order</span><br><span style="font-size:11px;color:#6E6659">(document status)</span></td><td>The order has been confirmed and is committed to the vendor.</td><td>Nothing, until the goods turn up.</td></tr>
+        <tr><td><span class="stat g">Product receipt</span><br><span style="font-size:11px;color:#6E6659">(document status)</span></td><td>At least one delivery has been recorded against the order.</td><td>Wait for the vendor's bill, then do Part 3.</td></tr>
         <tr><td><span class="stat g">Received</span></td><td>Everything ordered has been recorded as arrived.</td><td>Wait for the vendor's invoice, then do Part 3.</td></tr>
-        <tr><td><span class="stat o">Partially received</span></td><td>Some arrived, some is still outstanding.</td><td>Post another product receipt when the rest comes in.</td></tr>
-        <tr><td><span class="stat g">Invoiced</span></td><td>The bill has been posted. The order is finished.</td><td>Nothing. Payment is Finance's job.</td></tr>
+        <tr><td><span class="stat b">Invoiced</span></td><td>Everything has been received and billed. The order is finished.</td><td>Nothing. Payment is Finance's job.</td></tr>
       </tbody>
     </table>
   </div>
@@ -71,7 +71,7 @@
         <tr><td><b>Product receipt</b></td><td>The record of goods arriving. Also the name of the vendor's packing slip number you type in.</td></tr>
         <tr><td><b>Deliver now</b></td><td>The quantity arriving in this particular delivery, as opposed to the quantity ordered.</td></tr>
         <tr><td><b>Three-way matching</b></td><td>The automatic check that the order, the receipt and the invoice agree with one another.</td></tr>
-        <tr><td><b>Site</b> and <b>Warehouse</b></td><td>Where goods physically live. Site is the location; warehouse is a store within it.</td></tr>
+        <tr><td><b>Site</b> and <b>Warehouse</b></td><td>Where goods physically live. Site is the location; warehouse is a storage area within it.</td></tr>
         <tr><td><b>Legal entity</b></td><td>The company you are working in, shown in the top corner. Records cannot be moved between companies.</td></tr>
         <tr><td><b>Accounts payable</b></td><td>The part of the system, and the team, that pays vendors.</td></tr>
       </tbody>
@@ -83,9 +83,9 @@
     <div style="display:flex;flex-wrap:wrap;gap:10px">
       <span class="path"><b>Ctrl + S</b> Save</span>
       <span class="path"><b>Alt + N</b> New record</span>
-      <span class="path"><b>Ctrl + F</b> Filter the list</span>
-      <span class="path"><b>Esc</b> Close without saving</span>
-      <span class="path"><b>Tab</b> Move to the next field</span>
+      <span class="path"><b>Ctrl + F3</b> Open the filter pane</span>
+      <span class="path"><b>Tab</b> Next field</span>
+      <span class="path"><b>Shift + Tab</b> Previous field</span>
     </div>
   </div>
 
