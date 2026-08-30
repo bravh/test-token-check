@@ -1,0 +1,13 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html",           "x": 0,    "y": 0, "w": 794, "h": 2100, "print": "flow", "title": "Start here · The big picture" },
+    { "file": "PurchaseOrder.dc.html",  "x": 914,  "y": 0, "w": 794, "h": 4000, "print": "flow", "title": "Part 1 · Create a purchase order" },
+    { "file": "ProductReceipt.dc.html", "x": 1828, "y": 0, "w": 794, "h": 3800, "print": "flow", "title": "Part 2 · Receive the goods" },
+    { "file": "VendorInvoice.dc.html",  "x": 2742, "y": 0, "w": 794, "h": 3700, "print": "flow", "title": "Part 3 · Record the invoice" },
+    { "file": "QuickReference.dc.html", "x": 3656, "y": 0, "w": 794, "h": 2500, "print": "flow", "title": "Quick reference" }
+  ],
+  "annotations": [
+    { "id": "read-order", "x": 0, "y": -300, "w": 420, "text": "Read left to right.\nParts 1-3 are the workflow itself; the last page is the one to print and pin up." }
+  ],
+  "launch": { "view": "canvas" }
+}

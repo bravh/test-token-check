@@ -1,0 +1,291 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <style>
+    :root{color-scheme:light}
+    *{box-sizing:border-box}
+    body{margin:0;background:#FBF8F3;color:#1F1B16;font-family:"Source Sans 3","Segoe UI",system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+    a{color:#C05A2C}
+    a:hover{color:#8F3F1C}
+    h1,h2,h3,h4{font-family:"Archivo","Segoe UI",system-ui,sans-serif;margin:0;line-height:1.14;letter-spacing:-0.012em;font-weight:700}
+    p{margin:0;text-wrap:pretty}
+    ul,ol{margin:0}
+    .page{width:794px;padding:52px 56px 60px;display:flex;flex-direction:column;gap:34px}
+    .eyebrow{font-family:"Archivo",sans-serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#C05A2C}
+    .hdr{display:flex;flex-direction:column;gap:14px;border-bottom:3px solid #1F1B16;padding-bottom:24px}
+    .hdr h1{font-size:36px}
+    .lede{font-size:18px;color:#5F574B;max-width:54ch}
+    .partchip{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;background:#1F1B16;color:#FBF8F3;font-family:"Archivo",sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:6px 11px}
+    .sec{display:flex;flex-direction:column;gap:18px}
+    .sec h2{font-size:25px}
+    .sec h3{font-size:18px}
+    .kicker{font-family:"Archivo",sans-serif;font-size:11px;font-weight:600;letter-spacing:0.17em;text-transform:uppercase;color:#6E6659}
+    .rule{height:1px;background:#E4DDD1}
+    .steps{display:flex;flex-direction:column;gap:30px}
+    .step{display:grid;grid-template-columns:44px minmax(0,1fr);gap:18px;align-items:start}
+    .step__n{width:44px;height:44px;border-radius:50%;background:#1F1B16;color:#FBF8F3;font-family:"Archivo",sans-serif;font-weight:700;font-size:19px;display:flex;align-items:center;justify-content:center}
+    .step__b{display:flex;flex-direction:column;gap:11px;padding-top:7px}
+    .path{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.5;color:#1F1B16;background:#F2EEE6;border:1px solid #E4DDD1;padding:9px 11px}
+    .path b{font-weight:500;color:#8F3F1C}
+    .shot{margin:0;display:flex;flex-direction:column;gap:11px}
+    .ui{border:1px solid #C9C2B7;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden}
+    .ui__top{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#2E2A25;color:#EFEAE1;padding:9px 12px;font-size:12px}
+    .ui__crumb{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+    .ui__sep{color:#948B80}
+    .ui__co{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:#BEB6AA;white-space:nowrap}
+    .ui__tabs{display:flex;gap:17px;padding:0 12px;background:#F4F1EC;border-bottom:1px solid #DCD5CA;font-size:12.5px;color:#66604F}
+    .ui__tab{padding:9px 0;border-bottom:2px solid transparent;white-space:nowrap}
+    .ui__tab.on{color:#1F1B16;font-weight:600;border-bottom-color:#1F1B16}
+    .ui__cmd{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:11px 12px;background:#FAF8F4;border-bottom:1px solid #E4DDD1}
+    .ui__title{display:flex;align-items:baseline;gap:10px;padding:12px 14px 0}
+    .ui__title h4{font-size:17px}
+    .ui__title span{font-size:12px;color:#6E6659}
+    .btn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:#33302B;border:1px solid #D2CBC0;background:#FFFFFF;padding:6px 10px;white-space:nowrap}
+    .btn.pri{background:#1F1B16;color:#FBF8F3;border-color:#1F1B16;font-weight:600}
+    .btn.gh{border-color:transparent;background:transparent;color:#5F574B}
+    .tgt{box-shadow:0 0 0 2px #C05A2C}
+    .aim{display:inline-flex;align-items:center;gap:7px}
+    .ui__body{padding:14px;display:flex;flex-direction:column;gap:15px}
+    .grp{display:flex;flex-direction:column;gap:9px}
+    .grp__t{font-family:"Archivo",sans-serif;font-size:12px;font-weight:600;color:#4A4437;border-bottom:1px solid #E4DDD1;padding-bottom:5px}
+    .fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px 20px}
+    .fgrid.t3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .fld{display:flex;flex-direction:column;gap:4px}
+    .fld__l{font-size:11px;color:#6E6659}
+    .fld__v{font-size:13px;border:1px solid #D2CBC0;border-bottom:1px solid #8C8478;background:#FFFFFF;padding:6px 8px;color:#1F1B16;min-height:29px}
+    .fld__v.ph{color:#9A9186}
+    .fld__v.sel{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .chev{color:#8C8478}
+    table.g{width:100%;border-collapse:collapse;font-size:12px}
+    table.g th{text-align:left;font-weight:600;color:#4A4437;background:#F4F1EC;border-bottom:1px solid #DCD5CA;padding:7px 8px;white-space:nowrap}
+    table.g td{border-bottom:1px solid #EDE8E0;padding:7px 8px;color:#33302B;vertical-align:middle}
+    table.g td.num,table.g th.num{text-align:right}
+    .stat{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;letter-spacing:0.03em;padding:3px 7px;border:1px solid;white-space:nowrap}
+    .stat.n{color:#5F574B;border-color:#CFC8BC;background:#F4F1EC}
+    .stat.b{color:#2C6BAB;border-color:#B9CFE6;background:#EDF3FA}
+    .stat.g{color:#3C7A54;border-color:#BCD6C5;background:#EEF6F0}
+    .stat.o{color:#A8481F;border-color:#EACAB4;background:#FBF2EC}
+    .cap{font-size:12.5px;color:#6E6659;font-style:italic}
+    .hs{display:inline-flex;align-items:center;gap:5px;flex:none}
+    .hs__n{width:21px;height:21px;border-radius:50%;background:#C05A2C;color:#FFFFFF;font-family:"Archivo",sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+    .keys{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px}
+    .keys li{display:grid;grid-template-columns:21px minmax(0,1fr);gap:11px;align-items:start;font-size:14.5px;line-height:1.5}
+    .keys__n{width:21px;height:21px;border-radius:50%;background:#C05A2C;color:#FFFFFF;font-family:"Archivo",sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+    .keys b{font-weight:700}
+    .box{border:1px solid #D8D0C3;background:#FFFFFF;padding:16px 18px;display:flex;flex-direction:column;gap:9px}
+    .box__t{font-family:"Archivo",sans-serif;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;display:flex;align-items:center;gap:7px}
+    .box p,.box li{font-size:14.5px;line-height:1.55}
+    .box.info{background:#F1F5FA;border-color:#C6D8EA}
+    .box.info .box__t{color:#2C6BAB}
+    .box.warn{background:#FBF2EC;border-color:#EACAB4}
+    .box.warn .box__t{color:#A8481F}
+    .bul{padding-left:18px;display:flex;flex-direction:column;gap:6px}
+    .chk{list-style:none;padding:0;display:flex;flex-direction:column;gap:11px}
+    .chk li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:11px;align-items:start;font-size:15px}
+    .chk svg{margin-top:4px}
+  </style>
+</helmet>
+<div class="page">
+
+  <div class="hdr">
+    <span class="partchip">Part 2 of 3</span>
+    <h1>Receive the goods</h1>
+    <p class="lede">When the delivery arrives at your door, you record it. This is called posting a product receipt, and it is what makes the stock in Dynamics 365 match the stock on your shelf.</p>
+  </div>
+
+  <div class="box info">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>Have the vendor's paperwork in front of you</span>
+    <p>Every delivery comes with a packing slip or delivery note, and it carries a reference number. You will be asked to type that number in. It is how anyone looking at this order later can tie the entry in Dynamics 365 back to a piece of paper in a folder.</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step__n">1</div>
+      <div class="step__b">
+        <h3>Open the confirmed order</h3>
+        <p>Go back to the list of orders and click the order number to open it.</p>
+        <p class="path"><b>Modules</b> &rsaquo; Procurement and sourcing &rsaquo; Purchase orders &rsaquo; <b>All purchase orders</b></p>
+        <p>You are looking for one with the status <b>Open order</b> that has already been confirmed. If it is easier, filter the list by vendor.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">2</div>
+      <div class="step__b">
+        <h3>Go to the <span style="color:#8F3F1C">Receive</span> tab</h3>
+        <p>Along the top of the order there is a row of tabs. Click <b>Receive</b>. The buttons underneath change. In the <b>Generate</b> group, click <b>Product receipt</b>.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">All purchase orders <span class="ui__sep">&rsaquo;</span> PO-000241</span>
+          <span class="ui__co">CONTOSO</span>
+        </div>
+        <div class="ui__tabs">
+          <span class="ui__tab">Purchase order</span><span class="ui__tab">Purchase</span><span class="ui__tab">Manage</span>
+          <span class="aim"><span class="hs"><span class="hs__n">1</span></span><span class="ui__tab on tgt">Receive</span></span>
+          <span class="ui__tab">Invoice</span><span class="ui__tab">General</span>
+        </div>
+        <div class="ui__cmd">
+          <span class="aim">
+            <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="btn pri tgt">Product receipt</span>
+          </span>
+          <span class="btn">Receipts list</span>
+          <span class="btn">Arrival overview</span>
+          <span class="aim">
+            <span class="btn tgt" style="box-shadow:0 0 0 2px #2C6BAB">Journals &#9662;</span>
+            <span class="hs"><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M14 7 H5" stroke="#2C6BAB" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L3 7 L7.5 10.5" stroke="#2C6BAB" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#2C6BAB">check it later</span></span>
+          </span>
+        </div>
+        <div class="ui__title"><h4>PO-000241 &nbsp;&middot;&nbsp; Northwind Packaging</h4><span>Status <span class="stat n">Open order</span> &nbsp; Document status <span class="stat b">Purchase order</span></span></div>
+        <div class="ui__body">
+          <table class="g">
+            <thead><tr><th>Item number</th><th>Product name</th><th class="num">Ordered</th><th class="num">Received</th><th class="num">Remaining</th><th>Unit</th></tr></thead>
+            <tbody>
+              <tr><td>M0012</td><td>Corrugated box, large</td><td class="num">250</td><td class="num">0</td><td class="num">250</td><td>pcs</td></tr>
+              <tr><td>M0031</td><td>Packing tape, 50 mm</td><td class="num">60</td><td class="num">0</td><td class="num">60</td><td>roll</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>Receive</b> tab &mdash; everything to do with goods arriving lives here.</div></li>
+        <li><span class="keys__n">2</span><div><b>Product receipt</b> &mdash; opens the posting window shown below. This is the button you want.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; a confirmed order, nothing received yet. The blue mark shows <b>Journals</b>, where you can look up receipts you have already posted.</figcaption>
+    </figure>
+
+    <div class="step">
+      <div class="step__n">3</div>
+      <div class="step__b">
+        <h3>Type the vendor's reference and the date</h3>
+        <p>Two fields matter here:</p>
+        <ul class="bul">
+          <li><b>Product receipt</b> &mdash; copy the number from the vendor's packing slip. It is compulsory, and it must be different from any receipt number already used on this order.</li>
+          <li><b>Product receipt date</b> &mdash; the day the goods actually arrived, which is not always today. Get this right: it decides the accounting period the stock lands in.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">4</div>
+      <div class="step__b">
+        <h3>Say how much actually turned up</h3>
+        <p>The <b>Quantity</b> box near the top decides what the lines are filled with:</p>
+        <ul class="bul">
+          <li><b>Ordered quantity</b> &mdash; use this when the whole delivery arrived complete. Every line is filled with the full amount.</li>
+          <li><b>Deliver now</b> &mdash; use this when only part of it arrived. The lines are filled with whatever you type in the <b>Deliver now</b> column, and you type the real figures yourself.</li>
+        </ul>
+        <p>Scroll to the <b>Lines</b> grid at the bottom of the window and check every row against the boxes in front of you. Two short of what was ordered? Type the number you actually got. Nothing at all on a line? Type <span class="mono">0</span> and that line stays open for a later delivery.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">5</div>
+      <div class="step__b">
+        <h3>Post it</h3>
+        <p>Click <b>OK</b>. The window closes and the order reloads. If you need a printed copy for the warehouse, tick <b>Print product receipt</b> before you click.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">Posting product receipt</span>
+          <span class="ui__co">PO-000241</span>
+        </div>
+        <div class="ui__body">
+          <div class="grp">
+            <div class="grp__t">Parameters</div>
+            <div class="fgrid t3">
+              <div class="fld"><span class="fld__l">Quantity</span>
+                <span class="aim">
+                  <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="fld__v sel tgt" style="flex:1">Deliver now <span class="chev">&#9662;</span></span>
+                </span>
+              </div>
+              <div class="fld"><span class="fld__l">Product receipt</span>
+                <span class="aim">
+                  <span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="fld__v tgt" style="flex:1">DN-77421</span>
+                </span>
+              </div>
+              <div class="fld"><span class="fld__l">Product receipt date</span><span class="fld__v">26 Feb 2026</span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#33302B;padding-top:2px">
+              <span style="width:13px;height:13px;border:1px solid #8C8478;background:#FFFFFF;display:inline-block"></span> Print product receipt
+            </div>
+          </div>
+          <div class="grp">
+            <div class="grp__t">Lines</div>
+            <table class="g">
+              <thead><tr><th>Item number</th><th>Product name</th><th class="num">Ordered</th><th class="num">Deliver now</th><th>Unit</th><th>Warehouse</th></tr></thead>
+              <tbody>
+                <tr><td>M0012</td><td>Corrugated box, large</td><td class="num">250</td><td class="num"><span class="fld__v tgt" style="display:inline-block;padding:3px 7px;min-height:0">250</span></td><td>pcs</td><td>11</td></tr>
+                <tr><td>M0031</td><td>Packing tape, 50 mm</td><td class="num">60</td><td class="num"><span class="fld__v tgt" style="display:inline-block;padding:3px 7px;min-height:0">40</span></td><td>roll</td><td>11</td></tr>
+              </tbody>
+            </table>
+            <span class="aim" style="align-self:flex-start"><span class="hs"><span class="hs__n">3</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M14 7 H5" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L3 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span style="font-size:12.5px;color:#8F3F1C">only 40 of the 60 rolls arrived &mdash; type what you really got</span></span>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;border-top:1px solid #E4DDD1;padding-top:13px">
+            <span class="btn">Cancel</span>
+            <span class="aim">
+              <span class="hs"><span class="hs__n">4</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="btn pri tgt">OK</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>Product receipt</b> &mdash; the vendor's packing slip number. Compulsory, and it cannot be reused on this order.</div></li>
+        <li><span class="keys__n">2</span><div><b>Quantity</b> &mdash; <b>Ordered quantity</b> for a complete delivery, <b>Deliver now</b> when only part of it arrived.</div></li>
+        <li><span class="keys__n">3</span><div><b>Deliver now</b> column &mdash; the real amount, line by line. Type <span class="mono">0</span> for anything that did not come.</div></li>
+        <li><span class="keys__n">4</span><div><b>OK</b> &mdash; posts the receipt. Stock goes up the moment you click it.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; posting a partial delivery: all the boxes arrived, only 40 of the 60 tape rolls did.</figcaption>
+    </figure>
+
+    <div class="step">
+      <div class="step__n">6</div>
+      <div class="step__b">
+        <h3>Check that it worked</h3>
+        <p>Three things change straight away, and they are all worth a glance:</p>
+        <ul class="bul">
+          <li>The order's <b>Status</b> becomes <b>Received</b> if everything came, or stays <b>Open order</b> with a partial amount showing if some is still outstanding.</li>
+          <li>The <b>Received</b> column on the lines now shows the amounts you entered, and <b>Remaining</b> drops accordingly.</li>
+          <li>A record of the receipt appears under <b>Receive</b> &rsaquo; <b>Journals</b> &rsaquo; <b>Product receipt</b>. Open it if you ever need to prove what was received, when, and against which packing slip.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="box warn">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.2 L14.6 13.6 H1.4 Z" stroke="#A8481F" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6.4v3.1M8 11.2v.6" stroke="#A8481F" stroke-width="1.6" stroke-linecap="round"/></svg>The three that trip people up</span>
+    <ul class="bul">
+      <li><b>&ldquo;Product receipt number already exists.&rdquo;</b> That reference has been used on this order before. Check whether somebody already posted this delivery before you type a new number.</li>
+      <li><b>You cannot receive more than you ordered</b> unless your company allows over-delivery. If more turned up than the order says, speak to whoever raised the order rather than forcing the number through.</li>
+      <li><b>Posting cannot be undone by deleting it.</b> If you get a quantity wrong, the fix is to post a correcting receipt with a negative amount &mdash; ask a colleague to walk you through it the first time.</li>
+    </ul>
+  </div>
+
+  <div class="box info">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>If your warehouse registers arrivals first</span>
+    <p>Some organisations scan goods in at the loading bay before anyone posts a receipt &mdash; through <b>Arrival overview</b> or a handheld scanner. If that is how yours works, the quantities are already recorded by the time you get here: choose <b>Registered quantity</b> in the <b>Quantity</b> box instead of typing amounts yourself, and the rest of the step is identical.</p>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

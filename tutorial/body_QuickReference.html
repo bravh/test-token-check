@@ -1,0 +1,95 @@
+<div class="page">
+
+  <div class="hdr">
+    <span class="partchip">Keep this one</span>
+    <h1>Quick reference</h1>
+    <p class="lede">The whole flow on one page &mdash; where each button lives, what the statuses mean, and what to do when something will not go through.</p>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">Where the buttons are</span>
+    <h2>Three tabs, in order</h2>
+    <table class="g" style="font-size:13.5px">
+      <thead><tr><th>Step</th><th>Tab on the purchase order</th><th>Button</th><th>What you type in</th></tr></thead>
+      <tbody>
+        <tr><td><b>1. Order it</b></td><td>Purchase</td><td>Confirm</td><td>Vendor, items, quantities, prices</td></tr>
+        <tr><td><b>2. Receive it</b></td><td>Receive</td><td>Product receipt</td><td>Packing slip number, arrival date, amounts received</td></tr>
+        <tr><td><b>3. Pay for it</b></td><td>Invoice</td><td>Invoice</td><td>Vendor's invoice number and date</td></tr>
+      </tbody>
+    </table>
+    <p class="path"><b>Modules</b> &rsaquo; Procurement and sourcing &rsaquo; Purchase orders &rsaquo; <b>All purchase orders</b> &nbsp;&mdash;&nbsp; the starting point for all three</p>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">Reading the order</span>
+    <h2>What the statuses are telling you</h2>
+    <table class="g" style="font-size:13.5px">
+      <thead><tr><th>You see</th><th>It means</th><th>Do this next</th></tr></thead>
+      <tbody>
+        <tr><td><span class="stat n">Open order</span></td><td>The order exists. Nothing has arrived yet.</td><td>Confirm it, if you have not. Then wait for the delivery.</td></tr>
+        <tr><td><span class="stat b">Purchase order</span><br><span style="font-size:11px;color:#6E6659">(document status)</span></td><td>The order has been confirmed and is committed to the vendor.</td><td>Nothing, until the goods turn up.</td></tr>
+        <tr><td><span class="stat g">Received</span></td><td>Everything ordered has been recorded as arrived.</td><td>Wait for the vendor's invoice, then do Part 3.</td></tr>
+        <tr><td><span class="stat o">Partially received</span></td><td>Some arrived, some is still outstanding.</td><td>Post another product receipt when the rest comes in.</td></tr>
+        <tr><td><span class="stat g">Invoiced</span></td><td>The bill has been posted. The order is finished.</td><td>Nothing. Payment is Finance's job.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">When it will not work</span>
+    <h2>The problems people actually hit</h2>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="box">
+        <span class="box__t" style="color:#1F1B16">Confirm is greyed out</span>
+        <p>Save the order first. If it is still greyed out, your company requires approval &mdash; use <b>Workflow</b> &rsaquo; <b>Submit</b> and wait, or you may simply not have permission to confirm.</p>
+      </div>
+      <div class="box">
+        <span class="box__t" style="color:#1F1B16">The product receipt number is rejected</span>
+        <p>It has been used on this order before. Check whether the delivery was already posted by someone else before you invent a new number.</p>
+      </div>
+      <div class="box">
+        <span class="box__t" style="color:#1F1B16">You received more than was ordered</span>
+        <p>Most companies block this. Talk to whoever raised the order about increasing the quantity rather than forcing the receipt through.</p>
+      </div>
+      <div class="box">
+        <span class="box__t" style="color:#1F1B16">The invoice will not post</span>
+        <p>Look at the <b>Match</b> column. A difference in price or quantity beyond your company's tolerance needs approval, not a correction typed over the top. Save the invoice and pass it on.</p>
+      </div>
+      <div class="box">
+        <span class="box__t" style="color:#1F1B16">You posted something wrong</span>
+        <p>Posted documents are not deleted &mdash; they are corrected with a reversing entry. Do not try to fix it by editing or deleting. Ask Accounts payable or a colleague who has done it before.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">Plain English</span>
+    <h2>Words you will keep seeing</h2>
+    <table class="g" style="font-size:13.5px">
+      <tbody>
+        <tr><td style="width:190px"><b>Post</b></td><td>To commit a document for real. Posting updates stock and accounts, and cannot be undone by deleting.</td></tr>
+        <tr><td><b>Product receipt</b></td><td>The record of goods arriving. Also the name of the vendor's packing slip number you type in.</td></tr>
+        <tr><td><b>Deliver now</b></td><td>The quantity arriving in this particular delivery, as opposed to the quantity ordered.</td></tr>
+        <tr><td><b>Three-way matching</b></td><td>The automatic check that the order, the receipt and the invoice agree with one another.</td></tr>
+        <tr><td><b>Site</b> and <b>Warehouse</b></td><td>Where goods physically live. Site is the location; warehouse is a store within it.</td></tr>
+        <tr><td><b>Legal entity</b></td><td>The company you are working in, shown in the top corner. Records cannot be moved between companies.</td></tr>
+        <tr><td><b>Accounts payable</b></td><td>The part of the system, and the team, that pays vendors.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">Shortcuts</span>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <span class="path"><b>Ctrl + S</b> Save</span>
+      <span class="path"><b>Alt + N</b> New record</span>
+      <span class="path"><b>Ctrl + F</b> Filter the list</span>
+      <span class="path"><b>Esc</b> Close without saving</span>
+      <span class="path"><b>Tab</b> Move to the next field</span>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  <p class="cap">Screens are simplified drawings, not photographs of a live system. Field names follow the standard Dynamics 365 setup; your organisation may have renamed some or added its own approval steps.</p>
+
+</div>

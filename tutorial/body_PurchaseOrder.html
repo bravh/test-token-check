@@ -1,0 +1,233 @@
+<div class="page">
+
+  <div class="hdr">
+    <span class="partchip">Part 1 of 3</span>
+    <h1>Create a purchase order</h1>
+    <p class="lede">The purchase order is your written promise to buy. Nothing else in this guide can happen until one exists and has been confirmed.</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step__n">1</div>
+      <div class="step__b">
+        <h3>Open the list of purchase orders</h3>
+        <p>From anywhere in Dynamics 365, open the navigation menu on the left and follow this path:</p>
+        <p class="path"><b>Modules</b> &rsaquo; Procurement and sourcing &rsaquo; Purchase orders &rsaquo; <b>All purchase orders</b></p>
+        <p>You will land on a list of every order your company has raised. This is your home base for Parts 1, 2 and 3 &mdash; you will come back here each time.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">Procurement and sourcing <span class="ui__sep">&rsaquo;</span> Purchase orders <span class="ui__sep">&rsaquo;</span> All purchase orders</span>
+          <span class="ui__co">Company: CONTOSO</span>
+        </div>
+        <div class="ui__tabs">
+          <span class="ui__tab on">Purchase order</span><span class="ui__tab">Manage</span><span class="ui__tab">Receive</span><span class="ui__tab">Invoice</span><span class="ui__tab">General</span><span class="ui__tab">Options</span>
+        </div>
+        <div class="ui__cmd">
+          <span class="aim">
+            <span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="btn pri tgt">+ New</span>
+          </span>
+          <span class="btn">Edit</span>
+          <span class="btn">Delete</span>
+          <span class="btn">Copy</span>
+          <span class="btn gh">Show filters</span>
+        </div>
+        <div class="ui__title"><h4>All purchase orders</h4><span>Standard view</span></div>
+        <div class="ui__body">
+          <table class="g">
+            <thead><tr><th>Purchase order</th><th>Vendor account</th><th>Vendor name</th><th>Status</th><th>Approval status</th><th>Delivery date</th></tr></thead>
+            <tbody>
+              <tr><td>PO-000239</td><td>V-1042</td><td>Northwind Packaging</td><td><span class="stat b">Received</span></td><td>Approved</td><td>12 Feb 2026</td></tr>
+              <tr><td>PO-000240</td><td>V-1017</td><td>Alpine Components</td><td><span class="stat n">Open order</span></td><td>Approved</td><td>18 Feb 2026</td></tr>
+              <tr><td>PO-000238</td><td>V-1042</td><td>Northwind Packaging</td><td><span class="stat g">Invoiced</span></td><td>Approved</td><td>02 Feb 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>New</b> &mdash; opens a blank order. It is the first button on the row, and it is the only one you need right now.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; the list of all purchase orders.</figcaption>
+    </figure>
+
+    <div class="step">
+      <div class="step__n">2</div>
+      <div class="step__b">
+        <h3>Tell the system who you are buying from</h3>
+        <p>A small window opens on the right called <b>Create purchase order</b>. The first field, <b>Vendor account</b>, is the only one that is truly compulsory.</p>
+        <p>Click into it and start typing the vendor's name or account number. A list appears underneath and narrows as you type &mdash; click the right one. The vendor's full name fills in automatically next to it.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">3</div>
+      <div class="step__b">
+        <h3>Open <span style="color:#8F3F1C">General</span> and set where and when</h3>
+        <p>Below the vendor there are collapsed sections. Click the word <b>General</b> to expand it. Check these four:</p>
+        <ul class="bul">
+          <li><b>Site</b> and <b>Warehouse</b> &mdash; where the goods will physically arrive. These usually fill in from the vendor, but they are worth a glance.</li>
+          <li><b>Delivery date</b> &mdash; when you expect the goods. It is a promise, not a commitment; you can change it later.</li>
+          <li><b>Currency</b> &mdash; comes from the vendor record. Only change it if you know you should.</li>
+        </ul>
+        <p>Then click <b>OK</b> at the bottom of the window.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">Create purchase order</span>
+          <span class="ui__co">CONTOSO</span>
+        </div>
+        <div class="ui__body">
+          <div class="grp">
+            <div class="grp__t">Vendor</div>
+            <div class="fgrid">
+              <div class="fld"><span class="fld__l">Vendor account</span>
+                <span class="aim">
+                  <span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="fld__v sel tgt" style="flex:1">V-1042 <span class="chev">&#9662;</span></span>
+                </span>
+              </div>
+              <div class="fld"><span class="fld__l">Name</span><span class="fld__v" style="background:#F4F1EC;color:#6E6659">Northwind Packaging</span></div>
+            </div>
+          </div>
+          <div class="grp">
+            <div class="grp__t">
+              <span class="aim"><span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tgt" style="padding:1px 4px">General</span></span>
+            </div>
+            <div class="fgrid t3">
+              <div class="fld"><span class="fld__l">Site</span><span class="fld__v sel">1 <span class="chev">&#9662;</span></span></div>
+              <div class="fld"><span class="fld__l">Warehouse</span><span class="fld__v sel">11 <span class="chev">&#9662;</span></span></div>
+              <div class="fld"><span class="fld__l">Currency</span><span class="fld__v sel">EUR <span class="chev">&#9662;</span></span></div>
+              <div class="fld"><span class="fld__l">Delivery date</span><span class="fld__v">24 Feb 2026</span></div>
+              <div class="fld"><span class="fld__l">Purchase type</span><span class="fld__v sel">Purchase order <span class="chev">&#9662;</span></span></div>
+              <div class="fld"><span class="fld__l">Requester</span><span class="fld__v ph">Optional</span></div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;border-top:1px solid #E4DDD1;padding-top:13px">
+            <span class="btn">Cancel</span>
+            <span class="aim">
+              <span class="hs"><span class="hs__n">3</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="btn pri tgt">OK</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>Vendor account</b> &mdash; type a few letters, then pick from the list. Do not type a vendor who is not on it.</div></li>
+        <li><span class="keys__n">2</span><div><b>General</b> &mdash; click the heading to expand it and reveal site, warehouse, currency and delivery date.</div></li>
+        <li><span class="keys__n">3</span><div><b>OK</b> &mdash; creates the order and takes you straight to it. The order number is generated for you.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; the Create purchase order window.</figcaption>
+    </figure>
+
+    <div class="step">
+      <div class="step__n">4</div>
+      <div class="step__b">
+        <h3>List what you are buying</h3>
+        <p>You are now on the order itself. The lower half of the page is called <b>Purchase order lines</b> &mdash; one line per thing you are buying.</p>
+        <p>Click <b>Add line</b>, then fill the row across:</p>
+        <ul class="bul">
+          <li><b>Item number</b> &mdash; start typing and pick from the list. The product name fills itself in.</li>
+          <li><b>Quantity</b> &mdash; how many. <b>Unit</b> normally fills in on its own (pieces, boxes, kilos).</li>
+          <li><b>Unit price</b> &mdash; if a price is already agreed with the vendor it appears by itself. If it is blank or wrong, type the correct one.</li>
+          <li><b>Site</b> and <b>Warehouse</b> &mdash; carried down from the header. Change them only if this particular line goes somewhere else.</li>
+        </ul>
+        <p>Press <span class="mono">Tab</span> to move across the row, or click straight into a cell. Repeat for each additional item.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">5</div>
+      <div class="step__b">
+        <h3>Save</h3>
+        <p>Click the <b>Save</b> icon at the top of the page, or press <span class="mono">Ctrl + S</span>. Until you save, the <b>Confirm</b> button in the next step will not work.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">6</div>
+      <div class="step__b">
+        <h3>Confirm the order</h3>
+        <p>Confirming is what turns a draft into a real commitment to the vendor. Go to the <b>Purchase</b> tab along the top of the page, and in the <b>Actions</b> group click <b>Confirm</b>.</p>
+        <p>The page reloads and the <b>Document status</b> at the top changes to <b>Purchase order</b>, meaning a confirmed order now exists. That is your signal that Part 1 is finished.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">All purchase orders <span class="ui__sep">&rsaquo;</span> PO-000241</span>
+          <span class="ui__co">CONTOSO</span>
+        </div>
+        <div class="ui__tabs">
+          <span class="ui__tab">Purchase order</span><span class="ui__tab on">Purchase</span><span class="ui__tab">Manage</span><span class="ui__tab">Receive</span><span class="ui__tab">Invoice</span><span class="ui__tab">General</span>
+        </div>
+        <div class="ui__cmd">
+          <span class="aim">
+            <span class="hs"><span class="hs__n">3</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="btn pri tgt">Confirm</span>
+          </span>
+          <span class="btn">Approve</span>
+          <span class="btn">Request change</span>
+          <span class="btn gh">Purchase order confirmation</span>
+        </div>
+        <div class="ui__title"><h4>PO-000241 &nbsp;&middot;&nbsp; Northwind Packaging</h4><span>Status <span class="stat n">Open order</span></span></div>
+        <div class="ui__body">
+          <div class="grp">
+            <div class="grp__t" style="display:flex;justify-content:space-between;align-items:center">
+              <span>Purchase order lines</span>
+              <span class="aim">
+                <span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="btn tgt">+ Add line</span>
+              </span>
+            </div>
+            <table class="g">
+              <thead><tr><th>Item number</th><th>Product name</th><th class="num">Quantity</th><th>Unit</th><th class="num">Unit price</th><th class="num">Net amount</th><th>Site</th><th>Warehouse</th></tr></thead>
+              <tbody>
+                <tr><td>M0012</td><td>Corrugated box, large</td><td class="num">250</td><td>pcs</td><td class="num">1.40</td><td class="num">350.00</td><td>1</td><td>11</td></tr>
+                <tr><td>M0031</td><td>Packing tape, 50 mm</td><td class="num">60</td><td>roll</td><td class="num">2.10</td><td class="num">126.00</td><td>1</td><td>11</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #E4DDD1;padding-top:11px">
+            <span class="aim">
+              <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="btn tgt">Save</span>
+            </span>
+            <span style="font-size:12.5px;color:#4A4437">Total <b>476.00 EUR</b></span>
+          </div>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>Add line</b> &mdash; adds an empty row for the next item. Fill the row from left to right.</div></li>
+        <li><span class="keys__n">2</span><div><b>Save</b> &mdash; or <span class="mono">Ctrl + S</span>. Do this before you try to confirm.</div></li>
+        <li><span class="keys__n">3</span><div><b>Confirm</b>, on the <b>Purchase</b> tab &mdash; the last click of Part 1. It locks the agreed quantities and prices.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; a purchase order with two lines, ready to confirm.</figcaption>
+    </figure>
+
+  </div>
+
+  <div class="box warn">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.2 L14.6 13.6 H1.4 Z" stroke="#A8481F" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6.4v3.1M8 11.2v.6" stroke="#A8481F" stroke-width="1.6" stroke-linecap="round"/></svg>If Confirm is greyed out</span>
+    <ul class="bul">
+      <li>You have unsaved changes. Save first.</li>
+      <li>Your company uses an approval workflow. In that case there is a <b>Workflow</b> button instead &mdash; click <b>Submit</b>, add a note, and wait for your approver. <b>Confirm</b> becomes available once the order is approved.</li>
+      <li>The order is already confirmed. Check the document status next to the order number.</li>
+      <li>You do not have permission to confirm orders. Ask whoever administers Dynamics 365 at your organisation.</li>
+    </ul>
+  </div>
+
+  <div class="box info">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>Sending the order to the vendor</span>
+    <p>Confirming does not email anybody by itself. To produce the document the vendor sees, use <b>Purchase order confirmation</b> on the same <b>Purchase</b> tab &mdash; you can then print it or send it as a PDF. Many organisations automate this; check what yours does before sending anything twice.</p>
+  </div>
+
+</div>

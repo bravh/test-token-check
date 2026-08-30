@@ -1,0 +1,104 @@
+<div class="page">
+
+  <div class="hdr">
+    <span class="eyebrow">Dynamics 365 &middot; Everyday guide</span>
+    <h1>Buying something, receiving it,<br>and paying the bill</h1>
+    <p class="lede">A step-by-step walkthrough of the purchase order, product receipt and vendor invoice flow. Written for people who use Dynamics 365 &mdash; not for people who build it.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:9px;padding-top:4px">
+      <span class="stat n">5 parts</span>
+      <span class="stat n">About 25 minutes</span>
+      <span class="stat n">No technical knowledge needed</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">The big picture</span>
+    <h2>Three documents, always in this order</h2>
+    <p style="color:#5F574B">Every purchase in Dynamics 365 creates three records, one after the other. You cannot skip a step, and each one unlocks the next. If you remember nothing else from this guide, remember this row:</p>
+
+    <div style="display:flex;align-items:stretch;gap:11px;padding-top:4px">
+      <div style="flex:1;border:1px solid #D8D0C3;background:#FFFFFF;padding:15px;display:flex;flex-direction:column;gap:7px">
+        <span style="font-family:Archivo,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C05A2C">Part 1</span>
+        <h3 style="font-size:16px">Purchase order</h3>
+        <p style="font-size:13.5px;color:#5F574B">You promise to buy. You list what you want, from whom, at what price &mdash; then confirm it and send it to the vendor.</p>
+        <span class="stat n" style="align-self:flex-start;margin-top:2px">Status: Open order</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;width:32px;flex:none">
+        <svg width="30" height="20" viewBox="0 0 30 20" fill="none" aria-hidden="true"><path d="M1 10 H23" stroke="#C05A2C" stroke-width="2" stroke-linecap="round"/><path d="M17 4 L25 10 L17 16" stroke="#C05A2C" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div style="flex:1;border:1px solid #D8D0C3;background:#FFFFFF;padding:15px;display:flex;flex-direction:column;gap:7px">
+        <span style="font-family:Archivo,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C05A2C">Part 2</span>
+        <h3 style="font-size:16px">Product receipt</h3>
+        <p style="font-size:13.5px;color:#5F574B">The goods turn up. You record what actually arrived, so the stock in the system matches the stock on the shelf.</p>
+        <span class="stat g" style="align-self:flex-start;margin-top:2px">Status: Received</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;width:32px;flex:none">
+        <svg width="30" height="20" viewBox="0 0 30 20" fill="none" aria-hidden="true"><path d="M1 10 H23" stroke="#C05A2C" stroke-width="2" stroke-linecap="round"/><path d="M17 4 L25 10 L17 16" stroke="#C05A2C" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div style="flex:1;border:1px solid #D8D0C3;background:#FFFFFF;padding:15px;display:flex;flex-direction:column;gap:7px">
+        <span style="font-family:Archivo,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C05A2C">Part 3</span>
+        <h3 style="font-size:16px">Vendor invoice</h3>
+        <p style="font-size:13.5px;color:#5F574B">The bill arrives. You check it against the order and the receipt, then post it so Finance can pay the vendor.</p>
+        <span class="stat b" style="align-self:flex-start;margin-top:2px">Status: Invoiced</span>
+      </div>
+    </div>
+
+    <div class="box info">
+      <span class="box__t">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Why the order matters
+      </span>
+      <p>Dynamics 365 compares all three documents before it lets an invoice be paid. This is called <b>three-way matching</b>: what you ordered, what you received, and what you were billed have to agree. Receiving before you order, or invoicing before you receive, breaks that chain &mdash; which is why the buttons for the later steps stay greyed out until the earlier one is done.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">Before you start</span>
+    <h2>Four things to have ready</h2>
+    <ul class="chk">
+      <li>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>You are in the right company.</b> The company code sits in the top-right corner of the screen. Everything you create belongs to whichever company is showing there, and it cannot be moved afterwards.</div>
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>The vendor already exists.</b> You pick a vendor from a list &mdash; you do not type a new one on the fly. If yours is missing, ask whoever looks after vendor records to add it first.</div>
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>You know your item numbers.</b> Or the category to buy against, if you are buying a service rather than a stocked product.</div>
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>You know your site and warehouse.</b> These tell the system where the goods are going. Most people only ever use one of each &mdash; if you are not sure which, ask a colleague on your team.</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">How to read this guide</span>
+    <h2>The marks on the pictures</h2>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
+      <div class="box">
+        <span class="aim"><span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="btn tgt">Confirm</span></span>
+        <p>An orange number with an arrow points at the exact thing to click. The orange ring around it shows you what to look for on your own screen.</p>
+      </div>
+      <div class="box">
+        <span class="path" style="align-self:flex-start"><b>Modules</b> &rsaquo; Procurement and sourcing</span>
+        <p>Grey boxes like this are a menu path. Read them left to right: click the first word, then the next, and so on, until you land on the page.</p>
+      </div>
+      <div class="box info">
+        <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>Good to know</span>
+        <p>Blue boxes explain what the system is doing behind the scenes. Useful, but you can skip them the first time through.</p>
+      </div>
+      <div class="box warn">
+        <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.2 L14.6 13.6 H1.4 Z" stroke="#A8481F" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6.4v3.1M8 11.2v.6" stroke="#A8481F" stroke-width="1.6" stroke-linecap="round"/></svg>Watch out</span>
+        <p>Orange boxes are the mistakes people actually make. These are worth reading before you click, not after.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  <p class="cap">The screens in this guide are simplified drawings, not photographs of a live system. Your own screen will carry your company's colours, extra fields and buttons your organisation has added, and menu items you do not have permission to use may be missing. The shape of the flow &mdash; and the order of the steps &mdash; is the same either way.</p>
+
+</div>
