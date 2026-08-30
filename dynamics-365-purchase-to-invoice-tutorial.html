@@ -1,0 +1,939 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Purchase to Invoice in Dynamics 365</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+    :root{color-scheme:light}
+    *{box-sizing:border-box}
+    body{margin:0;background:#FBF8F3;color:#1F1B16;font-family:"Source Sans 3","Segoe UI",system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+    a{color:#C05A2C}
+    a:hover{color:#8F3F1C}
+    h1,h2,h3,h4{font-family:"Archivo","Segoe UI",system-ui,sans-serif;margin:0;line-height:1.14;letter-spacing:-0.012em;font-weight:700}
+    p{margin:0;text-wrap:pretty}
+    ul,ol{margin:0}
+    .page{width:794px;padding:52px 56px 60px;display:flex;flex-direction:column;gap:34px}
+    .eyebrow{font-family:"Archivo",sans-serif;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#C05A2C}
+    .hdr{display:flex;flex-direction:column;gap:14px;border-bottom:3px solid #1F1B16;padding-bottom:24px}
+    .hdr h1{font-size:36px}
+    .lede{font-size:18px;color:#5F574B;max-width:54ch}
+    .partchip{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;background:#1F1B16;color:#FBF8F3;font-family:"Archivo",sans-serif;font-size:11.5px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:6px 11px}
+    .sec{display:flex;flex-direction:column;gap:18px}
+    .sec h2{font-size:25px}
+    .sec h3{font-size:18px}
+    .kicker{font-family:"Archivo",sans-serif;font-size:11px;font-weight:600;letter-spacing:0.17em;text-transform:uppercase;color:#6E6659}
+    .rule{height:1px;background:#E4DDD1}
+    .steps{display:flex;flex-direction:column;gap:30px}
+    .step{display:grid;grid-template-columns:44px minmax(0,1fr);gap:18px;align-items:start}
+    .step__n{width:44px;height:44px;border-radius:50%;background:#1F1B16;color:#FBF8F3;font-family:"Archivo",sans-serif;font-weight:700;font-size:19px;display:flex;align-items:center;justify-content:center}
+    .step__b{display:flex;flex-direction:column;gap:11px;padding-top:7px}
+    .path{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.5;color:#1F1B16;background:#F2EEE6;border:1px solid #E4DDD1;padding:9px 11px}
+    .path b{font-weight:500;color:#8F3F1C}
+    .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:0.92em;background:#F2EEE6;border:1px solid #E4DDD1;padding:1px 5px;white-space:nowrap}
+    .shot{margin:0;display:flex;flex-direction:column;gap:11px}
+    .ui{border:1px solid #C9C2B7;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden}
+    .ui__top{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#2E2A25;color:#EFEAE1;padding:9px 12px;font-size:12px}
+    .ui__crumb{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+    .ui__sep{color:#948B80}
+    .ui__co{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:#BEB6AA;white-space:nowrap}
+    .ui__tabs{display:flex;gap:17px;padding:0 12px;background:#F4F1EC;border-bottom:1px solid #DCD5CA;font-size:12.5px;color:#66604F}
+    .ui__tab{padding:9px 0;border-bottom:2px solid transparent;white-space:nowrap}
+    .ui__tab.on{color:#1F1B16;font-weight:600;border-bottom-color:#1F1B16}
+    .ui__cmd{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:11px 12px;background:#FAF8F4;border-bottom:1px solid #E4DDD1}
+    .ui__title{display:flex;align-items:baseline;gap:10px;padding:12px 14px 0}
+    .ui__title h4{font-size:17px}
+    .ui__title span{font-size:12px;color:#6E6659}
+    .btn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:#33302B;border:1px solid #D2CBC0;background:#FFFFFF;padding:6px 10px;white-space:nowrap}
+    .btn.pri{background:#1F1B16;color:#FBF8F3;border-color:#1F1B16;font-weight:600}
+    .btn.gh{border-color:transparent;background:transparent;color:#5F574B}
+    .tgt{box-shadow:0 0 0 2px #C05A2C}
+    .aim{display:inline-flex;align-items:center;gap:7px}
+    .ui__body{padding:14px;display:flex;flex-direction:column;gap:15px}
+    .grp{display:flex;flex-direction:column;gap:9px}
+    .grp__t{font-family:"Archivo",sans-serif;font-size:12px;font-weight:600;color:#4A4437;border-bottom:1px solid #E4DDD1;padding-bottom:5px}
+    .fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px 20px}
+    .fgrid.t3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .fld{display:flex;flex-direction:column;gap:4px}
+    .fld__l{font-size:11px;color:#6E6659}
+    .fld__v{font-size:13px;border:1px solid #D2CBC0;border-bottom:1px solid #8C8478;background:#FFFFFF;padding:6px 8px;color:#1F1B16;min-height:29px}
+    .fld__v.ph{color:#9A9186}
+    .fld__v.sel{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .chev{color:#8C8478}
+    table.g{width:100%;border-collapse:collapse;font-size:12px}
+    table.g th{text-align:left;font-weight:600;color:#4A4437;background:#F4F1EC;border-bottom:1px solid #DCD5CA;padding:7px 8px;white-space:nowrap}
+    table.g td{border-bottom:1px solid #EDE8E0;padding:7px 8px;color:#33302B;vertical-align:middle}
+    table.g td.num,table.g th.num{text-align:right}
+    .stat{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;letter-spacing:0.03em;padding:3px 7px;border:1px solid;white-space:nowrap}
+    .stat.n{color:#5F574B;border-color:#CFC8BC;background:#F4F1EC}
+    .stat.b{color:#2C6BAB;border-color:#B9CFE6;background:#EDF3FA}
+    .stat.g{color:#3C7A54;border-color:#BCD6C5;background:#EEF6F0}
+    .stat.o{color:#A8481F;border-color:#EACAB4;background:#FBF2EC}
+    .cap{font-size:12.5px;color:#6E6659;font-style:italic}
+    .hs{display:inline-flex;align-items:center;gap:5px;flex:none}
+    .hs__n{width:21px;height:21px;border-radius:50%;background:#C05A2C;color:#FFFFFF;font-family:"Archivo",sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+    .keys{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px}
+    .keys li{display:grid;grid-template-columns:21px minmax(0,1fr);gap:11px;align-items:start;font-size:14.5px;line-height:1.5}
+    .keys__n{width:21px;height:21px;border-radius:50%;background:#C05A2C;color:#FFFFFF;font-family:"Archivo",sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+    .keys b{font-weight:700}
+    .box{border:1px solid #D8D0C3;background:#FFFFFF;padding:16px 18px;display:flex;flex-direction:column;gap:9px}
+    .box__t{font-family:"Archivo",sans-serif;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;display:flex;align-items:center;gap:7px}
+    .box p,.box li{font-size:14.5px;line-height:1.55}
+    .box.info{background:#F1F5FA;border-color:#C6D8EA}
+    .box.info .box__t{color:#2C6BAB}
+    .box.warn{background:#FBF2EC;border-color:#EACAB4}
+    .box.warn .box__t{color:#A8481F}
+    .bul{padding-left:18px;display:flex;flex-direction:column;gap:6px}
+    .chk{list-style:none;padding:0;display:flex;flex-direction:column;gap:11px}
+    .chk li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:11px;align-items:start;font-size:15px}
+    .chk svg{margin-top:4px}
+
+    body{background:#EFEAE1;padding:28px 0}
+    .page{background:#FBF8F3;margin:0 auto 28px;box-shadow:0 1px 3px rgba(31,27,22,0.16)}
+    @media print{
+      body{background:#FFFFFF;padding:0}
+      .page{width:auto;max-width:none;box-shadow:none;margin:0;padding:14mm 14mm 16mm;break-after:page;page-break-after:always}
+      .page:last-child{break-after:auto;page-break-after:auto}
+      .shot,.step,.box,figure{break-inside:avoid;page-break-inside:avoid}
+    }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hdr">
+    <span class="eyebrow">Dynamics 365 &middot; Everyday guide</span>
+    <h1>Buying something, receiving it,<br>and paying the bill</h1>
+    <p class="lede">A step-by-step walkthrough of the purchase order, product receipt and vendor invoice flow. Written for people who use Dynamics 365 &mdash; not for people who build it.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:9px;padding-top:4px">
+      <span class="stat n">3 steps</span>
+      <span class="stat n">5 pages</span>
+      <span class="stat n">About 25 minutes</span>
+      <span class="stat n">No technical knowledge needed</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">The big picture</span>
+    <h2>Three documents, always in this order</h2>
+    <p style="color:#5F574B">Every purchase in Dynamics 365 creates three records, one after the other. You cannot skip a step, and each one unlocks the next. If you remember nothing else from this guide, remember this sequence:</p>
+
+    <div style="display:flex;align-items:stretch;gap:11px;padding-top:4px">
+      <div style="flex:1;border:1px solid #D8D0C3;background:#FFFFFF;padding:15px;display:flex;flex-direction:column;gap:7px">
+        <span style="font-family:Archivo,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C05A2C">Part 1</span>
+        <h3 style="font-size:16px">Purchase order</h3>
+        <p style="font-size:13.5px;color:#5F574B">You promise to buy. You list what you want, from whom, at what price &mdash; then confirm it and send it to the vendor.</p>
+        <span class="stat n" style="align-self:flex-start;margin-top:2px">Status: Open order</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;width:32px;flex:none">
+        <svg width="30" height="20" viewBox="0 0 30 20" fill="none" aria-hidden="true"><path d="M1 10 H23" stroke="#C05A2C" stroke-width="2" stroke-linecap="round"/><path d="M17 4 L25 10 L17 16" stroke="#C05A2C" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div style="flex:1;border:1px solid #D8D0C3;background:#FFFFFF;padding:15px;display:flex;flex-direction:column;gap:7px">
+        <span style="font-family:Archivo,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C05A2C">Part 2</span>
+        <h3 style="font-size:16px">Product receipt</h3>
+        <p style="font-size:13.5px;color:#5F574B">The goods turn up. You record what actually arrived, so the stock in the system matches the stock on the shelf.</p>
+        <span class="stat g" style="align-self:flex-start;margin-top:2px">Status: Received</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;width:32px;flex:none">
+        <svg width="30" height="20" viewBox="0 0 30 20" fill="none" aria-hidden="true"><path d="M1 10 H23" stroke="#C05A2C" stroke-width="2" stroke-linecap="round"/><path d="M17 4 L25 10 L17 16" stroke="#C05A2C" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div style="flex:1;border:1px solid #D8D0C3;background:#FFFFFF;padding:15px;display:flex;flex-direction:column;gap:7px">
+        <span style="font-family:Archivo,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C05A2C">Part 3</span>
+        <h3 style="font-size:16px">Vendor invoice</h3>
+        <p style="font-size:13.5px;color:#5F574B">The bill arrives. You check it against the order and the receipt, then post it so Finance can pay the vendor.</p>
+        <span class="stat b" style="align-self:flex-start;margin-top:2px">Status: Invoiced</span>
+      </div>
+    </div>
+
+    <div class="box info">
+      <span class="box__t">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Why the order matters
+      </span>
+      <p>Dynamics 365 compares all three documents before it lets an invoice be posted. This is called <b>three-way matching</b>: what you ordered, what you received, and what you were billed have to agree. Each document is built from the one before it, so working out of order gets you nowhere &mdash; an invoice raised against nothing received has no quantities to check itself against.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">Before you start</span>
+    <h2>Four things to have ready</h2>
+    <ul class="chk">
+      <li>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>You are in the right company.</b> Dynamics 365 calls this the <b>legal entity</b>, and it is shown in the top corner of the screen. Everything you create belongs to whichever company is showing there, and it cannot be moved afterwards.</div>
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>The vendor already exists.</b> You pick a vendor from a list &mdash; you do not type a new one on the fly. If yours is missing, ask whoever looks after vendor records to add it first.</div>
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>You know your item numbers.</b> If you are buying a service rather than a physical product you pick a <b>procurement category</b> instead of an item number &mdash; ask your team which one to use.</div>
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9.5 L7 13.5 L15 5" stroke="#3C7A54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>You know your site and warehouse.</b> These tell the system where the goods are going. Most people only ever use one of each &mdash; if you are not sure which, ask a colleague on your team.</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">How to read this guide</span>
+    <h2>The marks on the pictures</h2>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
+      <div class="box">
+        <span class="aim"><span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="btn tgt">Confirm</span></span>
+        <p>An orange number with an arrow points at the exact thing to click, and the orange ring shows you what to look for on your own screen. The numbers follow the order you do things in, which is not always top to bottom on the screen.</p>
+      </div>
+      <div class="box">
+        <span class="path" style="align-self:flex-start"><b>Modules</b> &rsaquo; Procurement and sourcing</span>
+        <p>Grey boxes like this are a menu path. Read them left to right: click the first word, then the next, and so on, until you land on the page.</p>
+      </div>
+      <div class="box info">
+        <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>Good to know</span>
+        <p>Blue boxes explain what the system is doing behind the scenes. Useful, but you can skip them the first time through.</p>
+      </div>
+      <div class="box warn">
+        <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.2 L14.6 13.6 H1.4 Z" stroke="#A8481F" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6.4v3.1M8 11.2v.6" stroke="#A8481F" stroke-width="1.6" stroke-linecap="round"/></svg>Watch out</span>
+        <p>Orange boxes are the mistakes people actually make. These are worth reading before you click, not after.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  <p class="cap">The screens in this guide are simplified drawings, not photographs of a live system. Your own screen will carry your company's colours, extra fields and buttons your organisation has added, and menu items you do not have permission to use may be missing. The shape of the flow &mdash; and the order of the steps &mdash; is the same either way.</p>
+
+</div>
+
+<div class="page">
+
+  <div class="hdr">
+    <span class="partchip">Part 1 of 3</span>
+    <h1>Create a purchase order</h1>
+    <p class="lede">The purchase order is your written promise to buy. Nothing else in this guide can happen until one exists and has been confirmed.</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step__n">1</div>
+      <div class="step__b">
+        <h3>Open the list of purchase orders</h3>
+        <p>From anywhere in Dynamics 365, open the navigation menu on the left and follow this path:</p>
+        <p class="path"><b>Modules</b> &rsaquo; Procurement and sourcing &rsaquo; Purchase orders &rsaquo; <b>All purchase orders</b></p>
+        <p>You will land on a list of every order your company has raised. This is your home base for Parts 1, 2 and 3 &mdash; you will come back here each time.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">Procurement and sourcing <span class="ui__sep">&rsaquo;</span> Purchase orders <span class="ui__sep">&rsaquo;</span> All purchase orders</span>
+          <span class="ui__co">Company: CONTOSO</span>
+        </div>
+        <div class="ui__tabs">
+          <span class="ui__tab on">Purchase order</span><span class="ui__tab">Purchase</span><span class="ui__tab">Manage</span><span class="ui__tab">Receive</span><span class="ui__tab">Invoice</span><span class="ui__tab">General</span>
+        </div>
+        <div class="ui__cmd">
+          <span class="aim">
+            <span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="btn pri tgt">+ New</span>
+          </span>
+          <span class="btn">Edit</span>
+          <span class="btn">Delete</span>
+          <span class="btn">Copy</span>
+          <span class="btn gh">Show filters</span>
+        </div>
+        <div class="ui__title"><h4>All purchase orders</h4><span>Standard view</span></div>
+        <div class="ui__body">
+          <table class="g">
+            <thead><tr><th>Purchase order</th><th>Vendor account</th><th>Vendor name</th><th>Status</th><th>Document status</th><th>Delivery date</th></tr></thead>
+            <tbody>
+              <tr><td>PO-000240</td><td>V-1017</td><td>Alpine Components</td><td><span class="stat n">Open order</span></td><td>Purchase order</td><td>18 Feb 2026</td></tr>
+              <tr><td>PO-000239</td><td>V-1042</td><td>Northwind Packaging</td><td><span class="stat g">Received</span></td><td>Product receipt</td><td>12 Feb 2026</td></tr>
+              <tr><td>PO-000238</td><td>V-1042</td><td>Northwind Packaging</td><td><span class="stat b">Invoiced</span></td><td>Invoice</td><td>02 Feb 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>New</b> &mdash; opens a blank order. It is the first button on the row, and it is the only one you need right now.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; the list of all purchase orders.</figcaption>
+    </figure>
+
+    <div class="step">
+      <div class="step__n">2</div>
+      <div class="step__b">
+        <h3>Tell the system who you are buying from</h3>
+        <p>A small window opens on the right called <b>Create purchase order</b>. The first field, <b>Vendor account</b>, is the only one you have to fill in.</p>
+        <p>Click into it and start typing the vendor's name or account number. A list appears underneath and narrows as you type &mdash; click the right one. The vendor's full name fills in automatically next to it.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">3</div>
+      <div class="step__b">
+        <h3>Open <span style="color:#8F3F1C">General</span> and set where and when</h3>
+        <p>Below the vendor there are collapsed sections. Click the word <b>General</b> to expand it, then check:</p>
+        <ul class="bul">
+          <li><b>Site</b> and <b>Warehouse</b> &mdash; where the goods will physically arrive. These usually fill in from the vendor, but they are worth a glance.</li>
+          <li><b>Delivery date</b> &mdash; when you expect the goods. It is your best estimate, and you can change it later.</li>
+          <li><b>Currency</b> &mdash; comes from the vendor record. Only change it if you know you should.</li>
+        </ul>
+        <p>Then click <b>OK</b> at the bottom of the window.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">Create purchase order</span>
+          <span class="ui__co">CONTOSO</span>
+        </div>
+        <div class="ui__body">
+          <div class="grp">
+            <div class="grp__t">Vendor</div>
+            <div class="fgrid">
+              <div class="fld"><span class="fld__l">Vendor account</span>
+                <span class="aim">
+                  <span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="fld__v sel tgt" style="flex:1">V-1042 <span class="chev">&#9662;</span></span>
+                </span>
+              </div>
+              <div class="fld"><span class="fld__l">Name</span><span class="fld__v" style="background:#F4F1EC;color:#6E6659">Northwind Packaging</span></div>
+            </div>
+          </div>
+          <div class="grp">
+            <div class="grp__t">
+              <span class="aim"><span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tgt" style="padding:1px 4px">General</span></span>
+            </div>
+            <div class="fgrid t3">
+              <div class="fld"><span class="fld__l">Site</span><span class="fld__v sel">1 <span class="chev">&#9662;</span></span></div>
+              <div class="fld"><span class="fld__l">Warehouse</span><span class="fld__v sel">11 <span class="chev">&#9662;</span></span></div>
+              <div class="fld"><span class="fld__l">Currency</span><span class="fld__v sel">EUR <span class="chev">&#9662;</span></span></div>
+              <div class="fld"><span class="fld__l">Delivery date</span><span class="fld__v">24 Feb 2026</span></div>
+              <div class="fld"><span class="fld__l">Purchase type</span><span class="fld__v sel">Purchase order <span class="chev">&#9662;</span></span></div>
+              <div class="fld"><span class="fld__l">Requester</span><span class="fld__v ph">Optional</span></div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;border-top:1px solid #E4DDD1;padding-top:13px">
+            <span class="btn">Cancel</span>
+            <span class="aim">
+              <span class="hs"><span class="hs__n">3</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="btn pri tgt">OK</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>Vendor account</b> &mdash; type a few letters, then pick from the list. Do not type a vendor who is not on it.</div></li>
+        <li><span class="keys__n">2</span><div><b>General</b> &mdash; click the heading to expand it and reveal site, warehouse, currency and delivery date.</div></li>
+        <li><span class="keys__n">3</span><div><b>OK</b> &mdash; creates the order and takes you straight to it. The order number is generated for you.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; the Create purchase order window.</figcaption>
+    </figure>
+
+    <div class="step">
+      <div class="step__n">4</div>
+      <div class="step__b">
+        <h3>List what you are buying</h3>
+        <p>You are now on the order itself. The lower half of the page is called <b>Purchase order lines</b> &mdash; one line per thing you are buying.</p>
+        <p>Click <b>Add line</b>, then fill the row across:</p>
+        <ul class="bul">
+          <li><b>Item number</b> &mdash; start typing and pick from the list. The product name fills itself in.</li>
+          <li><b>Quantity</b> &mdash; how many. <b>Unit</b> normally fills in on its own (pieces, boxes, kilos).</li>
+          <li><b>Unit price</b> &mdash; if a price is already agreed with the vendor it appears by itself. If it is blank or wrong, type the correct one.</li>
+          <li><b>Site</b> and <b>Warehouse</b> &mdash; carried down from the header. Change them only if this particular line goes somewhere else.</li>
+        </ul>
+        <p>Press <span class="mono">Tab</span> to move across the row, or click straight into a cell. Repeat for each additional item.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">5</div>
+      <div class="step__b">
+        <h3>Save</h3>
+        <p>Click the <b>Save</b> icon at the top of the page, or press <span class="mono">Ctrl + S</span>. Until you save, the <b>Confirm</b> button in the next step will not work.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">6</div>
+      <div class="step__b">
+        <h3>Confirm the order</h3>
+        <p>Confirming is what turns a draft into a real commitment to the vendor. Go to the <b>Purchase</b> tab along the top of the page, and in the <b>Actions</b> group click <b>Confirm</b>.</p>
+        <p>The page reloads and the <b>Document status</b> at the top changes to <b>Purchase order</b>. That reads oddly on a page that is already called a purchase order, but it just means &ldquo;a confirmed order document now exists&rdquo; &mdash; and it is your signal that Part 1 is finished.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">All purchase orders <span class="ui__sep">&rsaquo;</span> PO-000241</span>
+          <span class="ui__co">CONTOSO</span>
+        </div>
+        <div class="ui__tabs">
+          <span class="ui__tab">Purchase order</span><span class="ui__tab on">Purchase</span><span class="ui__tab">Manage</span><span class="ui__tab">Receive</span><span class="ui__tab">Invoice</span><span class="ui__tab">General</span>
+        </div>
+        <div class="ui__cmd">
+          <span class="aim">
+            <span class="hs"><span class="hs__n">3</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="btn pri tgt">Confirm</span>
+          </span>
+          <span class="btn">Approve</span>
+          <span class="btn">Request change</span>
+          <span class="btn gh">Purchase order confirmation</span>
+        </div>
+        <div class="ui__title"><h4>PO-000241 &nbsp;&middot;&nbsp; Northwind Packaging</h4><span>Status <span class="stat n">Open order</span></span></div>
+        <div class="ui__body">
+          <div class="grp">
+            <div class="grp__t" style="display:flex;justify-content:space-between;align-items:center">
+              <span>Purchase order lines</span>
+              <span class="aim">
+                <span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="btn tgt">+ Add line</span>
+              </span>
+            </div>
+            <table class="g">
+              <thead><tr><th>Item number</th><th>Product name</th><th class="num">Quantity</th><th>Unit</th><th class="num">Unit price</th><th class="num">Net amount</th><th>Site</th><th>Warehouse</th></tr></thead>
+              <tbody>
+                <tr><td>M0012</td><td>Corrugated box, large</td><td class="num">250</td><td>pcs</td><td class="num">1.40</td><td class="num">350.00</td><td>1</td><td>11</td></tr>
+                <tr><td>M0031</td><td>Packing tape, 50 mm</td><td class="num">60</td><td>roll</td><td class="num">2.10</td><td class="num">126.00</td><td>1</td><td>11</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #E4DDD1;padding-top:11px">
+            <span class="aim">
+              <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="btn tgt">Save</span>
+            </span>
+            <span style="font-size:12.5px;color:#4A4437">Total <b>476.00 EUR</b></span>
+          </div>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>Add line</b> &mdash; adds an empty row for the next item. Fill the row from left to right.</div></li>
+        <li><span class="keys__n">2</span><div><b>Save</b> &mdash; or <span class="mono">Ctrl + S</span>. Do this before you try to confirm.</div></li>
+        <li><span class="keys__n">3</span><div><b>Confirm</b>, on the <b>Purchase</b> tab &mdash; the last click of Part 1. It locks the agreed quantities and prices.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; a purchase order with two lines, ready to confirm.</figcaption>
+    </figure>
+
+  </div>
+
+  <div class="box warn">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.2 L14.6 13.6 H1.4 Z" stroke="#A8481F" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6.4v3.1M8 11.2v.6" stroke="#A8481F" stroke-width="1.6" stroke-linecap="round"/></svg>If Confirm is greyed out</span>
+    <ul class="bul">
+      <li>You have unsaved changes. Save first.</li>
+      <li>Your company uses an approval workflow. In that case there is a <b>Workflow</b> button instead &mdash; click <b>Submit</b>, add a note, and wait for your approver. <b>Confirm</b> becomes available once the order is approved.</li>
+      <li>The order is already confirmed. Check the document status next to the order number.</li>
+      <li>You do not have permission to confirm orders. Ask whoever administers Dynamics 365 at your organisation.</li>
+    </ul>
+  </div>
+
+  <div class="box info">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>Sending the order to the vendor</span>
+    <p>Confirming already produces the confirmation document, but it does not send it anywhere. Click <b>Purchase order confirmation</b> on the same <b>Purchase</b> tab to open the confirmations that have been generated, then print one or send it as a PDF from there. Many organisations automate this; check what yours does before sending anything twice.</p>
+  </div>
+
+</div>
+
+<div class="page">
+
+  <div class="hdr">
+    <span class="partchip">Part 2 of 3</span>
+    <h1>Receive the goods</h1>
+    <p class="lede">When the delivery arrives at your door, you record it. This is called posting a product receipt, and it is what makes the stock in Dynamics 365 match the stock on your shelf.</p>
+  </div>
+
+  <div class="box info">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>Have the vendor's paperwork in front of you</span>
+    <p>Every delivery comes with a packing slip or delivery note, and it carries a reference number. You will be asked to type that number in. It is how anyone looking at this order later can tie the entry in Dynamics 365 back to a piece of paper in a folder.</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step__n">1</div>
+      <div class="step__b">
+        <h3>Open the confirmed order</h3>
+        <p>Go back to the list of orders and click the order number to open it.</p>
+        <p class="path"><b>Modules</b> &rsaquo; Procurement and sourcing &rsaquo; Purchase orders &rsaquo; <b>All purchase orders</b></p>
+        <p>You are looking for one with the status <b>Open order</b> that has already been confirmed. If it is easier, filter the list by vendor.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">2</div>
+      <div class="step__b">
+        <h3>Go to the <span style="color:#8F3F1C">Receive</span> tab</h3>
+        <p>Along the top of the order there is a row of tabs. Click <b>Receive</b>. The buttons underneath change. In the <b>Generate</b> group, click <b>Product receipt</b>.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">All purchase orders <span class="ui__sep">&rsaquo;</span> PO-000241</span>
+          <span class="ui__co">CONTOSO</span>
+        </div>
+        <div class="ui__tabs">
+          <span class="ui__tab">Purchase order</span><span class="ui__tab">Purchase</span><span class="ui__tab">Manage</span>
+          <span class="aim"><span class="hs"><span class="hs__n">1</span></span><span class="ui__tab on tgt">Receive</span></span>
+          <span class="ui__tab">Invoice</span><span class="ui__tab">General</span>
+        </div>
+        <div class="ui__cmd">
+          <span class="aim">
+            <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="btn pri tgt">Product receipt</span>
+          </span>
+          <span class="btn">Receipts list</span>
+          <span class="btn">Arrival overview</span>
+          <span class="aim">
+            <span class="btn tgt" style="box-shadow:0 0 0 2px #2C6BAB">Journals &#9662;</span>
+            <span class="hs"><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M14 7 H5" stroke="#2C6BAB" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L3 7 L7.5 10.5" stroke="#2C6BAB" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="font-size:12px;color:#2C6BAB">check it later</span></span>
+          </span>
+        </div>
+        <div class="ui__title"><h4>PO-000241 &nbsp;&middot;&nbsp; Northwind Packaging</h4><span>Status <span class="stat n">Open order</span> &nbsp; Document status <span class="stat n">Purchase order</span></span></div>
+        <div class="ui__body">
+          <table class="g">
+            <thead><tr><th>Item number</th><th>Product name</th><th class="num">Ordered</th><th class="num">Received</th><th class="num">Remaining</th><th>Unit</th></tr></thead>
+            <tbody>
+              <tr><td>M0012</td><td>Corrugated box, large</td><td class="num">250</td><td class="num">0</td><td class="num">250</td><td>pcs</td></tr>
+              <tr><td>M0031</td><td>Packing tape, 50 mm</td><td class="num">60</td><td class="num">0</td><td class="num">60</td><td>roll</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>Receive</b> tab &mdash; everything to do with goods arriving lives here.</div></li>
+        <li><span class="keys__n">2</span><div><b>Product receipt</b> &mdash; opens the posting window shown below. This is the button you want.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; a confirmed order, nothing received yet. The blue mark shows <b>Journals</b>, where you can look up receipts you have already posted.</figcaption>
+    </figure>
+
+    <div class="step">
+      <div class="step__n">3</div>
+      <div class="step__b">
+        <h3>Type the vendor's reference and the date</h3>
+        <p>Two fields matter here:</p>
+        <ul class="bul">
+          <li><b>Product receipt</b> &mdash; copy the number from the vendor's packing slip. It is required, and it must be different from any receipt number already used on this order. If the delivery note carries no number at all, use something your team agrees on and sticks to &mdash; the arrival date plus the vendor name, for instance.</li>
+          <li><b>Product receipt date</b> &mdash; the day the goods actually arrived, which is not always today. Get this right: it decides the accounting period the stock lands in.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">4</div>
+      <div class="step__b">
+        <h3>Say how much actually turned up</h3>
+        <p>The <b>Quantity</b> box near the top decides what the lines are filled with:</p>
+        <ul class="bul">
+          <li><b>Ordered quantity</b> &mdash; use this when the whole delivery arrived complete. Every line is filled with the full amount.</li>
+          <li><b>Deliver now</b> &mdash; use this when only part of it arrived. The lines are filled with whatever you type in the <b>Deliver now</b> column, and you type the real figures yourself.</li>
+        </ul>
+        <p>Scroll to the <b>Lines</b> grid at the bottom of the window and check every row against the boxes in front of you. Two short of what was ordered? Type the number you actually got. Nothing at all on a line? Type <span class="mono">0</span> and that line stays open for a later delivery.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">5</div>
+      <div class="step__b">
+        <h3>Post it</h3>
+        <p>Click <b>OK</b>. The window closes and the order reloads. If you need a printed copy for the warehouse, tick <b>Print product receipt</b> before you click.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">Posting product receipt</span>
+          <span class="ui__co">PO-000241</span>
+        </div>
+        <div class="ui__body">
+          <div class="grp">
+            <div class="grp__t">Parameters</div>
+            <div class="fgrid t3">
+              <div class="fld"><span class="fld__l">Product receipt</span>
+                <span class="aim">
+                  <span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="fld__v tgt" style="flex:1">DN-77421</span>
+                </span>
+              </div>
+              <div class="fld"><span class="fld__l">Quantity</span>
+                <span class="aim">
+                  <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="fld__v sel tgt" style="flex:1">Deliver now <span class="chev">&#9662;</span></span>
+                </span>
+              </div>
+              <div class="fld"><span class="fld__l">Product receipt date</span><span class="fld__v">26 Feb 2026</span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#33302B;padding-top:2px">
+              <span style="width:13px;height:13px;border:1px solid #8C8478;background:#FFFFFF;display:inline-block"></span> Print product receipt
+            </div>
+          </div>
+          <div class="grp">
+            <div class="grp__t">Lines</div>
+            <table class="g">
+              <thead><tr><th>Item number</th><th>Product name</th><th class="num">Ordered</th><th class="num">Deliver now</th><th>Unit</th><th>Warehouse</th></tr></thead>
+              <tbody>
+                <tr><td>M0012</td><td>Corrugated box, large</td><td class="num">250</td><td class="num"><span class="fld__v tgt" style="display:inline-block;padding:3px 7px;min-height:0">250</span></td><td>pcs</td><td>11</td></tr>
+                <tr><td>M0031</td><td>Packing tape, 50 mm</td><td class="num">60</td><td class="num"><span class="fld__v tgt" style="display:inline-block;padding:3px 7px;min-height:0">40</span></td><td>roll</td><td>11</td></tr>
+              </tbody>
+            </table>
+            <span class="aim" style="align-self:flex-start"><span class="hs"><span class="hs__n">3</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M14 7 H5" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L3 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span style="font-size:12.5px;color:#8F3F1C">only 40 of the 60 rolls arrived &mdash; type what you really got</span></span>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;border-top:1px solid #E4DDD1;padding-top:13px">
+            <span class="btn">Cancel</span>
+            <span class="aim">
+              <span class="hs"><span class="hs__n">4</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="btn pri tgt">OK</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>Product receipt</b> &mdash; the vendor's packing slip number. Required, and it cannot be reused on this order.</div></li>
+        <li><span class="keys__n">2</span><div><b>Quantity</b> &mdash; <b>Ordered quantity</b> for a complete delivery, <b>Deliver now</b> when only part of it arrived.</div></li>
+        <li><span class="keys__n">3</span><div><b>Deliver now</b> column &mdash; the real amount, line by line. Type <span class="mono">0</span> for anything that did not come.</div></li>
+        <li><span class="keys__n">4</span><div><b>OK</b> &mdash; posts the receipt. Stock goes up the moment you click it.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; posting a partial delivery: all the boxes arrived, only 40 of the 60 tape rolls did.</figcaption>
+    </figure>
+
+    <div class="step">
+      <div class="step__n">6</div>
+      <div class="step__b">
+        <h3>Check that it worked</h3>
+        <p>Three things change straight away, and they are all worth a glance:</p>
+        <ul class="bul">
+          <li>The order's <b>Status</b> becomes <b>Received</b> if everything came, or stays <b>Open order</b> with a partial amount showing if some is still outstanding.</li>
+          <li>The <b>Received</b> column on the lines now shows the amounts you entered, and <b>Remaining</b> drops accordingly.</li>
+          <li>Anything still outstanding stays on the order. When the rest of the delivery arrives, come back and post a second product receipt with the new packing slip number &mdash; you can do this as many times as the delivery is split.</li>
+          <li>A record of the receipt appears under <b>Receive</b> &rsaquo; <b>Journals</b> &rsaquo; <b>Product receipt</b>. Open it if you ever need to prove what was received, when, and against which packing slip.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="box warn">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.2 L14.6 13.6 H1.4 Z" stroke="#A8481F" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6.4v3.1M8 11.2v.6" stroke="#A8481F" stroke-width="1.6" stroke-linecap="round"/></svg>The three that trip people up</span>
+    <ul class="bul">
+      <li><b>&ldquo;Product receipt number already exists.&rdquo;</b> That reference has been used on this order before. Check whether somebody already posted this delivery before you type a new number.</li>
+      <li><b>You cannot receive more than you ordered</b> unless your company allows over-delivery. If more turned up than the order says, speak to whoever raised the order rather than forcing the number through.</li>
+      <li><b>Posting cannot be undone by deleting it.</b> If you get a quantity wrong, the fix is to post a correcting receipt with a negative amount &mdash; ask a colleague to walk you through it the first time.</li>
+    </ul>
+  </div>
+
+  <div class="box info">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>If your warehouse registers arrivals first</span>
+    <p>Some organisations scan goods in at the loading bay before anyone posts a receipt &mdash; through <b>Arrival overview</b> or a handheld scanner. If that is how yours works, the quantities are already recorded by the time you get here: choose <b>Registered quantity</b> in the <b>Quantity</b> box instead of typing amounts yourself, and the rest of the step is identical.</p>
+  </div>
+
+</div>
+
+<div class="page">
+
+  <div class="hdr">
+    <span class="partchip">Part 3 of 3</span>
+    <h1>Record the vendor's invoice</h1>
+    <p class="lede">The bill arrives. Your job is to check it against what was ordered and what was received, then post it so Finance can pay it. Dynamics 365 does most of the checking for you.</p>
+  </div>
+
+  <div class="box info">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#2C6BAB" stroke-width="1.6"/><path d="M8 7.2v4M8 4.8v.6" stroke="#2C6BAB" stroke-width="1.6" stroke-linecap="round"/></svg>What three-way matching means in practice</span>
+    <p>The system lines up three numbers for every item: the price you agreed on the order, the quantity you recorded on the receipt, and the quantity and price on the vendor's invoice. Where all three agree, you get a green tick and can post. Where they do not, you get a warning &mdash; and the whole point of this step is to look at that warning before you pass the bill on.</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step__n">1</div>
+      <div class="step__b">
+        <h3>Open the order and go to the <span style="color:#8F3F1C">Invoice</span> tab</h3>
+        <p>Open the purchase order as before, click the <b>Invoice</b> tab along the top, and in the <b>Generate</b> group click <b>Invoice</b>.</p>
+        <p class="path"><b>Modules</b> &rsaquo; Procurement and sourcing &rsaquo; Purchase orders &rsaquo; <b>All purchase orders</b> &rsaquo; open the order &rsaquo; <b>Invoice</b> &rsaquo; <b>Invoice</b></p>
+        <p>If invoices reach your company as scanned documents, they may already be waiting for you somewhere else instead:</p>
+        <p class="path"><b>Modules</b> &rsaquo; Accounts payable &rsaquo; Invoices &rsaquo; <b>Pending vendor invoices</b></p>
+        <p>Either route opens the same page, and everything from step 2 onwards is identical.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">All purchase orders <span class="ui__sep">&rsaquo;</span> PO-000241</span>
+          <span class="ui__co">CONTOSO</span>
+        </div>
+        <div class="ui__tabs">
+          <span class="ui__tab">Purchase order</span><span class="ui__tab">Purchase</span><span class="ui__tab">Manage</span><span class="ui__tab">Receive</span>
+          <span class="aim"><span class="hs"><span class="hs__n">1</span></span><span class="ui__tab on tgt">Invoice</span></span>
+          <span class="ui__tab">General</span>
+        </div>
+        <div class="ui__cmd">
+          <span class="aim">
+            <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="btn pri tgt">Invoice</span>
+          </span>
+          <span class="btn">Invoice history and matching details</span>
+          <span class="btn">Journals &#9662;</span>
+        </div>
+        <div class="ui__title"><h4>PO-000241 &nbsp;&middot;&nbsp; Northwind Packaging</h4><span>Status <span class="stat n">Open order</span> &nbsp; Document status <span class="stat g">Product receipt</span></span></div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div><b>Invoice</b> tab &mdash; the last of the three tabs you use, in the same order as the three documents.</div></li>
+        <li><span class="keys__n">2</span><div><b>Invoice</b> &mdash; creates a draft invoice from the order and the receipts already posted against it.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; the order after Part 2. It is still an open order, because 20 rolls have not arrived yet; but a product receipt exists, and that is what makes invoicing possible.</figcaption>
+    </figure>
+
+    <div class="step">
+      <div class="step__n">2</div>
+      <div class="step__b">
+        <h3>Copy the details off the vendor's bill</h3>
+        <p>At the top of the invoice page, fill in three things from the paper or PDF in front of you:</p>
+        <ul class="bul">
+          <li><b>Number</b> &mdash; the vendor's own invoice number, exactly as they wrote it. This is not generated for you, and it is how duplicate bills get caught.</li>
+          <li><b>Invoice date</b> &mdash; the date printed on the invoice, not today's date. Payment terms are calculated from it.</li>
+          <li><b>Invoice description</b> &mdash; a short note in your own words, so the next person to open this knows what it was for.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">3</div>
+      <div class="step__b">
+        <h3>Bring in the right receipts</h3>
+        <p>Set <b>Default quantity for lines</b> to <b>Product receipt quantity</b>. That tells the system to bill you for what actually arrived rather than what was originally ordered &mdash; which is what you want in almost every case.</p>
+        <p>Then click <b>Match product receipts</b> and tick the delivery or deliveries this invoice covers. One invoice can cover several deliveries; equally, one delivery can be split across two invoices. This is where you say which is which.</p>
+        <p>The quantities now fill in from those receipts &mdash; 40 rolls, in our example, because that is all that arrived. If the vendor has billed a different amount, type what they billed into the <b>Invoiced</b> column. That is what puts the difference on screen instead of quietly paying the wrong figure.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">4</div>
+      <div class="step__b">
+        <h3>Read the matching column</h3>
+        <p>Each line now carries a small mark showing whether the numbers agree:</p>
+        <ul class="bul">
+          <li><b>Green tick</b> &mdash; quantity and price match the order and the receipt. Nothing to do.</li>
+          <li><b>Orange warning</b> &mdash; something differs. Click <b>Matching details</b> on the <b>Review</b> tab to see exactly what: usually a price higher than agreed, or a quantity billed that was never received.</li>
+        </ul>
+        <p>Never post through a warning you have not understood. If the vendor has genuinely charged more, that is a conversation with them, not a number to overwrite.</p>
+        <p>In our example there are two honest ways forward: put the invoiced quantity back to 40 and post, which pays for what arrived and leaves the other 20 rolls open on the order for a later bill; or leave the invoice unposted and ask the vendor for a corrected one. Which of those you take is your company&rsquo;s call, not the system&rsquo;s.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">5</div>
+      <div class="step__b">
+        <h3>Check the total, then post</h3>
+        <p>The order total you saw in Part 1 was before tax; the invoice adds tax on top, so the figure here is normally higher than the order total. That on its own is not a problem.</p>
+        <p>Compare the total at the bottom of the page with the total on the vendor's invoice, including tax. If they differ by a few cents it is usually rounding; if they differ by more, find out why first.</p>
+        <p>When you are happy, click <b>Post</b>.</p>
+      </div>
+    </div>
+
+    <figure class="shot">
+      <div class="ui">
+        <div class="ui__top">
+          <span class="ui__crumb">Vendor invoice <span class="ui__sep">&rsaquo;</span> PO-000241</span>
+          <span class="ui__co">CONTOSO</span>
+        </div>
+        <div class="ui__tabs">
+          <span class="ui__tab on">Vendor invoice</span><span class="ui__tab">Review</span><span class="ui__tab">Options</span>
+        </div>
+        <div class="ui__cmd">
+          <span class="aim">
+            <span class="hs"><span class="hs__n">3</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="btn tgt">Match product receipts</span>
+          </span>
+          <span class="btn">Update match status</span>
+          <span class="btn">Totals</span>
+          <span class="btn">Save</span>
+          <span class="aim">
+            <span class="hs"><span class="hs__n">5</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="btn pri tgt">Post</span>
+          </span>
+        </div>
+        <div class="ui__body">
+          <div class="grp">
+            <div class="grp__t">Vendor invoice header</div>
+            <div class="fgrid t3">
+              <div class="fld"><span class="fld__l">Invoice account</span><span class="fld__v" style="background:#F4F1EC;color:#6E6659">V-1042 &middot; Northwind Packaging</span></div>
+              <div class="fld"><span class="fld__l">Number</span>
+                <span class="aim">
+                  <span class="hs"><span class="hs__n">1</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="fld__v tgt" style="flex:1">INV-2026-4417</span>
+                </span>
+              </div>
+              <div class="fld"><span class="fld__l">Invoice date</span><span class="fld__v tgt">28 Feb 2026</span></div>
+              <div class="fld" style="grid-column:span 2"><span class="fld__l">Invoice description</span><span class="fld__v">Packaging materials, February delivery</span></div>
+              <div class="fld"><span class="fld__l">Default quantity for lines</span>
+                <span class="aim">
+                  <span class="hs"><span class="hs__n">2</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M1 7 H10" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L12 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="fld__v sel tgt" style="flex:1">Product receipt quantity <span class="chev">&#9662;</span></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="grp">
+            <div class="grp__t">Invoice lines</div>
+            <table class="g">
+              <thead><tr><th>Match</th><th>Item number</th><th>Product name</th><th class="num">Received</th><th class="num">Invoiced</th><th class="num">Unit price</th><th class="num">Net amount</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.6" fill="#EEF6F0" stroke="#3C7A54" stroke-width="1.4"/><path d="M4.8 8.2 L7 10.4 L11.2 5.8" stroke="#3C7A54" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+                  <td>M0012</td><td>Corrugated box, large</td><td class="num">250</td><td class="num">250</td><td class="num">1.40</td><td class="num">350.00</td>
+                </tr>
+                <tr>
+                  <td><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.4 L14.4 13.4 H1.6 Z" fill="#FBF2EC" stroke="#A8481F" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6.6v3M8 11.3v.6" stroke="#A8481F" stroke-width="1.5" stroke-linecap="round"/></svg></td>
+                  <td>M0031</td><td>Packing tape, 50 mm</td><td class="num">40</td><td class="num">60</td><td class="num">2.10</td><td class="num">126.00</td>
+                </tr>
+              </tbody>
+            </table>
+            <span class="aim" style="align-self:flex-start"><span class="hs"><span class="hs__n">4</span><svg width="15" height="14" viewBox="0 0 15 14" fill="none" aria-hidden="true"><path d="M14 7 H5" stroke="#C05A2C" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 3.5 L3 7 L7.5 10.5" stroke="#C05A2C" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span style="font-size:12.5px;color:#8F3F1C">billed for 60 rolls, only 40 were received &mdash; query this before posting</span></span>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:26px;border-top:1px solid #E4DDD1;padding-top:11px;font-size:12.5px;color:#4A4437">
+            <span>Subtotal <b>476.00</b></span><span>Tax <b>99.96</b></span><span>Total <b>575.96 EUR</b></span>
+          </div>
+        </div>
+      </div>
+      <ol class="keys">
+        <li><span class="keys__n">1</span><div>The two ringed fields, <b>Number</b> and <b>Invoice date</b> &mdash; both copied from the vendor's document, never invented.</div></li>
+        <li><span class="keys__n">2</span><div><b>Default quantity for lines</b> &mdash; set it to <b>Product receipt quantity</b> so you are billed for what arrived.</div></li>
+        <li><span class="keys__n">3</span><div><b>Match product receipts</b> &mdash; tick the deliveries this invoice is paying for.</div></li>
+        <li><span class="keys__n">4</span><div>The <b>Match</b> column &mdash; a green tick means the numbers agree; an orange triangle means they do not.</div></li>
+        <li><span class="keys__n">5</span><div><b>Post</b> &mdash; the final click. Only press it once every line makes sense.</div></li>
+      </ol>
+      <figcaption class="cap">Illustration &mdash; an invoice with one clean line and one that does not match the delivery.</figcaption>
+    </figure>
+
+    <div class="step">
+      <div class="step__n">6</div>
+      <div class="step__b">
+        <h3>What you have just done</h3>
+        <ul class="bul">
+          <li>Once everything on the order has been received and billed, its status becomes <b>Invoiced</b> and the order is finished. While something is still outstanding &mdash; our 20 rolls &mdash; it stays <b>Open order</b>.</li>
+          <li>An open amount appears on the vendor's account, ready for the next payment run. Finance takes it from here &mdash; nothing is paid from this screen.</li>
+          <li>A permanent record sits under <b>Invoice</b> &rsaquo; <b>Journals</b> &rsaquo; <b>Invoice</b>, tying the bill back to the receipt and the order.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="box warn">
+    <span class="box__t"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2.2 L14.6 13.6 H1.4 Z" stroke="#A8481F" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6.4v3.1M8 11.2v.6" stroke="#A8481F" stroke-width="1.6" stroke-linecap="round"/></svg>When Post will not let you through</span>
+    <ul class="bul">
+      <li><b>A matching difference is above the tolerance your company allows.</b> The invoice can be saved but not posted until somebody with authority approves the difference. Save it, and pass it to your manager or to Accounts payable.</li>
+      <li><b>&ldquo;Invoice number already used for this vendor.&rdquo;</b> Almost always a duplicate bill. Check the vendor's account before entering it again.</li>
+      <li><b>The invoice date falls in a closed accounting period.</b> Finance closes months to stop late entries. Ask them whether to reopen the period or to use a later date.</li>
+      <li><b>Nothing has been received yet.</b> An invoice with no receipt behind it has nothing to match against. Go back and finish Part 2.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="page">
+
+  <div class="hdr">
+    <span class="partchip">Keep this one</span>
+    <h1>Quick reference</h1>
+    <p class="lede">The whole flow on one page &mdash; where each button lives, what the statuses mean, and what to do when something will not go through.</p>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">Where the buttons are</span>
+    <h2>Three tabs, in order</h2>
+    <table class="g" style="font-size:13.5px">
+      <thead><tr><th>Step</th><th>Tab on the purchase order</th><th>Button</th><th>What you type in</th></tr></thead>
+      <tbody>
+        <tr><td><b>1. Order it</b></td><td>Purchase</td><td>Confirm</td><td>Vendor, items, quantities, prices</td></tr>
+        <tr><td><b>2. Receive it</b></td><td>Receive</td><td>Product receipt</td><td>Packing slip number, arrival date, amounts received</td></tr>
+        <tr><td><b>3. Pay for it</b></td><td>Invoice</td><td>Invoice</td><td>Vendor's invoice number and date</td></tr>
+      </tbody>
+    </table>
+    <p class="path"><b>Modules</b> &rsaquo; Procurement and sourcing &rsaquo; Purchase orders &rsaquo; <b>All purchase orders</b> &nbsp;&mdash;&nbsp; the starting point for all three</p>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">Reading the order</span>
+    <h2>What the statuses are telling you</h2>
+    <table class="g" style="font-size:13.5px">
+      <thead><tr><th>You see</th><th>It means</th><th>Do this next</th></tr></thead>
+      <tbody>
+        <tr><td><span class="stat n">Open order</span></td><td>The order exists and something on it is still outstanding &mdash; that may be all of it, or just the last few items. There is no separate &ldquo;partly received&rdquo; status, so check the <b>Received</b> and <b>Remaining</b> columns on the lines to see where you stand.</td><td>Confirm it if you have not. Otherwise wait for the delivery, or post a receipt for whatever has just turned up.</td></tr>
+        <tr><td><span class="stat n">Purchase order</span><br><span style="font-size:11px;color:#6E6659">(document status)</span></td><td>The order has been confirmed and is committed to the vendor.</td><td>Nothing, until the goods turn up.</td></tr>
+        <tr><td><span class="stat g">Product receipt</span><br><span style="font-size:11px;color:#6E6659">(document status)</span></td><td>At least one delivery has been recorded against the order.</td><td>Wait for the vendor's bill, then do Part 3.</td></tr>
+        <tr><td><span class="stat g">Received</span></td><td>Everything ordered has been recorded as arrived.</td><td>Wait for the vendor's invoice, then do Part 3.</td></tr>
+        <tr><td><span class="stat b">Invoiced</span></td><td>Everything has been received and billed. The order is finished.</td><td>Nothing. Payment is Finance's job.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">When it will not work</span>
+    <h2>The problems people actually hit</h2>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="box">
+        <span class="box__t" style="color:#1F1B16">Confirm is greyed out</span>
+        <p>Save the order first. If it is still greyed out, your company requires approval &mdash; use <b>Workflow</b> &rsaquo; <b>Submit</b> and wait, or you may simply not have permission to confirm.</p>
+      </div>
+      <div class="box">
+        <span class="box__t" style="color:#1F1B16">The product receipt number is rejected</span>
+        <p>It has been used on this order before. Check whether the delivery was already posted by someone else before you invent a new number.</p>
+      </div>
+      <div class="box">
+        <span class="box__t" style="color:#1F1B16">You received more than was ordered</span>
+        <p>Most companies block this. Talk to whoever raised the order about increasing the quantity rather than forcing the receipt through.</p>
+      </div>
+      <div class="box">
+        <span class="box__t" style="color:#1F1B16">The invoice will not post</span>
+        <p>Look at the <b>Match</b> column. A difference in price or quantity beyond your company's tolerance needs approval, not a correction typed over the top. Save the invoice and pass it on.</p>
+      </div>
+      <div class="box">
+        <span class="box__t" style="color:#1F1B16">You posted something wrong</span>
+        <p>Posted documents are not deleted &mdash; they are corrected with a reversing entry. Do not try to fix it by editing or deleting. Ask Accounts payable or a colleague who has done it before.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">Plain English</span>
+    <h2>Words you will keep seeing</h2>
+    <table class="g" style="font-size:13.5px">
+      <tbody>
+        <tr><td style="width:190px"><b>Post</b></td><td>To commit a document for real. Posting updates stock and accounts, and cannot be undone by deleting.</td></tr>
+        <tr><td><b>Product receipt</b></td><td>The record of goods arriving. Also the name of the vendor's packing slip number you type in.</td></tr>
+        <tr><td><b>Deliver now</b></td><td>The quantity arriving in this particular delivery, as opposed to the quantity ordered.</td></tr>
+        <tr><td><b>Three-way matching</b></td><td>The automatic check that the order, the receipt and the invoice agree with one another.</td></tr>
+        <tr><td><b>Site</b> and <b>Warehouse</b></td><td>Where goods physically live. Site is the location; warehouse is a storage area within it.</td></tr>
+        <tr><td><b>Legal entity</b></td><td>The company you are working in, shown in the top corner. Records cannot be moved between companies.</td></tr>
+        <tr><td><b>Accounts payable</b></td><td>The part of the system, and the team, that pays vendors.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <span class="kicker">Shortcuts</span>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <span class="path"><b>Ctrl + S</b> Save</span>
+      <span class="path"><b>Alt + N</b> New record</span>
+      <span class="path"><b>Ctrl + F3</b> Open the filter pane</span>
+      <span class="path"><b>Tab</b> Next field</span>
+      <span class="path"><b>Shift + Tab</b> Previous field</span>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  <p class="cap">Screens are simplified drawings, not photographs of a live system. Field names follow the standard Dynamics 365 setup; your organisation may have renamed some or added its own approval steps.</p>
+
+</div>
+
+</body>
+</html>
