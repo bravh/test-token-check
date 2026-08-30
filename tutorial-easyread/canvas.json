@@ -1,0 +1,13 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html",    "x": 0,    "y": 0, "w": 794, "h": 1900, "print": "flow", "title": "The three steps" },
+    { "file": "Order.dc.html",   "x": 914,  "y": 0, "w": 794, "h": 2500, "print": "flow", "title": "Step 1 · Order it" },
+    { "file": "Receive.dc.html", "x": 1828, "y": 0, "w": 794, "h": 2800, "print": "flow", "title": "Step 2 · It arrives" },
+    { "file": "Invoice.dc.html", "x": 2742, "y": 0, "w": 794, "h": 2800, "print": "flow", "title": "Step 3 · Pay the bill" },
+    { "file": "Help.dc.html",    "x": 3656, "y": 0, "w": 794, "h": 1900, "print": "flow", "title": "Help" }
+  ],
+  "annotations": [
+    { "id": "easy-read-note", "x": 0, "y": -300, "w": 460, "text": "Easy-read version.\nBig type, cream paper, short lines, arrows instead of paragraphs." }
+  ],
+  "launch": { "view": "canvas" }
+}
